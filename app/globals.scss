@@ -1,0 +1,69 @@
+:root {
+    --color-gray-98: hsl(36deg 5% 98%);
+    --color-gray-95: hsl(36deg 5% 95%);
+    --color-gray-90: hsl(36deg 5% 90%);
+    --color-gray-30: hsl(36deg 5% 30%);
+    --color-gray-20: hsl(36deg 5% 20%);
+    --color-gray-16: hsl(36deg 5% 16%);
+    --color-gray-10: hsl(36deg 5% 10%);
+
+    --color-primary: hsl(36deg 100% 50%);
+    --color-primary-darker: hsl(36deg 100% 46%);
+    --color-primary-lighter: hsl(36deg 100% 58%);
+
+    --color-success: hsl(140deg 80% 50%);
+
+    --color-danger: hsl(340deg 90% 50%);
+
+    --color-border-fade: hsl(36deg 10% 90% / 20%);
+
+    --color-box-shadow-subtle: hsl(36deg 10% 20% / 8%);
+    --box-shadow-subtle: 0 0.3rem 0.7rem 0 var(--color-box-shadow-subtle);
+
+    --border-radius: 0.4rem;
+
+    --full-width: 120rem;
+    --full-width-padding-inline: calc(max(100% - var(--full-width), 4rem) / 2);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    color-scheme: dark;
+
+    font-family: Poppins, sans-serif;
+    font-size: 62.5%;
+}
+
+body {
+    background-color: var(--color-gray-10);
+    color: var(--color-gray-90);
+
+    font-size: 1.4rem;
+
+    > main {
+        margin-block-start: 2rem;
+    }
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    color: inherit;
+
+    text-decoration: none;
+}
+
+.page-bleed {
+    margin-inline: auto;
+    padding-inline: var(--full-width-padding-inline);
+}
