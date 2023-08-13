@@ -14,9 +14,7 @@ export default function Home(): ReactElement {
             <div className={styles.hero}>
                 <div>
                     <h1>
-                        <div className={styles.subtitle}>
-                            make it <span className={styles.schort}>schort</span>
-                        </div>
+                        <div className={styles.subtitle}>Keep it short</div>
                         <div className={`${styles.title} ${acme.className}`}>
                             <span className={styles['size-matters']}>size matters!</span>
                         </div>

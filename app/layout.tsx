@@ -8,7 +8,7 @@ const inter = Inter({weight: ['400', '700'], subsets: ['latin']});
 
 export const metadata: Metadata = {
     title: 'Schort',
-    description: 'Make it schort, size matters.',
+    description: 'Keep it short, size matters.',
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}): ReactElement {

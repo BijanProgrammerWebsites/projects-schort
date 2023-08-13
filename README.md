@@ -1,6 +1,6 @@
 # Schort
 
-Make it schort, size matters.
+Keep it short, size matters.
 
 This app lets you shorten any url. It has authentication functionality, so you can manage your links as well.
 
