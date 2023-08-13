@@ -2,12 +2,17 @@
     --color-gray-98: hsl(36deg 5% 98%);
     --color-gray-95: hsl(36deg 5% 95%);
     --color-gray-90: hsl(36deg 5% 90%);
+    --color-gray-80: hsl(36deg 5% 80%);
     --color-gray-30: hsl(36deg 5% 30%);
     --color-gray-20: hsl(36deg 5% 20%);
     --color-gray-16: hsl(36deg 5% 16%);
+    --color-gray-12: hsl(36deg 5% 12%);
+    --color-gray-14: hsl(36deg 5% 14%);
     --color-gray-10: hsl(36deg 5% 10%);
+    --color-gray-8: hsl(36deg 5% 8%);
 
     --color-primary: hsl(36deg 100% 50%);
+    --color-primary-opposite: var(--color-gray-10);
     --color-primary-darker: hsl(36deg 100% 46%);
     --color-primary-lighter: hsl(36deg 100% 58%);
 
@@ -46,7 +51,51 @@ body {
     background-color: var(--color-gray-10);
     color: var(--color-gray-90);
 
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+
+    &::before {
+        --dominant: var(--color-gray-10);
+        --recessive: var(--color-gray-12);
+        --size: 3rem;
+        --thickness: 0.1rem;
+        --inner-circle-radius: 1.2rem;
+        --outer-circle-radius: 2.6rem;
+
+        content: "";
+
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+
+        background: radial-gradient(
+                circle,
+                transparent var(--inner-circle-radius),
+                var(--dominant) var(--inner-circle-radius),
+                var(--dominant) var(--outer-circle-radius),
+                transparent var(--outer-circle-radius),
+                transparent
+            ),
+            linear-gradient(
+                45deg,
+                transparent,
+                transparent calc(50% - var(--thickness)),
+                var(--recessive) calc(50% - var(--thickness)),
+                var(--recessive) calc(50% + var(--thickness)),
+                transparent calc(50% + var(--thickness))
+            ),
+            linear-gradient(
+                -45deg,
+                transparent,
+                transparent calc(50% - var(--thickness)),
+                var(--recessive) calc(50% - var(--thickness)),
+                var(--recessive) calc(50% + var(--thickness)),
+                transparent calc(50% + var(--thickness))
+            );
+        background-size:
+            calc(2 * var(--size)) calc(2 * var(--size)),
+            var(--size) var(--size),
+            var(--size) var(--size);
+    }
 
     > main {
         margin-block-start: 2rem;
