@@ -3,6 +3,7 @@
     --color-gray-95: hsl(36deg 5% 95%);
     --color-gray-90: hsl(36deg 5% 90%);
     --color-gray-80: hsl(36deg 5% 80%);
+    --color-gray-70: hsl(36deg 5% 70%);
     --color-gray-30: hsl(36deg 5% 30%);
     --color-gray-20: hsl(36deg 5% 20%);
     --color-gray-16: hsl(36deg 5% 16%);
@@ -50,6 +51,8 @@ html {
 body {
     background-color: var(--color-gray-10);
     color: var(--color-gray-90);
+
+    overflow-x: hidden;
 
     font-size: 1.6rem;
 
