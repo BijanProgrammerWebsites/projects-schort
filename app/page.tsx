@@ -41,7 +41,7 @@ export default function Home(): ReactElement {
 
                 <Image
                     src={heroIllustration}
-                    alt="an illustration of a middleman that is sitting between searched url and database"
+                    alt="an illustration of a mobile phone that has a lot of messages, contacts and ratings floating around it"
                     width={1000}
                 />
             </div>
