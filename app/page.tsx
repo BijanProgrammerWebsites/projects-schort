@@ -1,12 +1,14 @@
-import styles from './page.module.scss';
 import {ReactElement} from 'react';
-import {Acme} from 'next/font/google';
-import Image from 'next/image';
 
-import heroIllustration from './assets/illustrations/hero.svg';
+import {Luckiest_Guy} from 'next/font/google';
+import Image from 'next/image';
 import Link from 'next/link';
 
-const acme = Acme({weight: '400', subsets: ['latin']});
+import heroIllustration from './assets/illustrations/hero.svg';
+
+import styles from './page.module.scss';
+
+const luckiestGuy = Luckiest_Guy({weight: '400', subsets: ['latin']});
 
 export default function Home(): ReactElement {
     return (
@@ -14,8 +16,8 @@ export default function Home(): ReactElement {
             <div className={styles.hero}>
                 <div>
                     <h1>
-                        <div className={styles.subtitle}>Keep it short</div>
-                        <div className={`${styles.title} ${acme.className}`}>
+                        <div className={styles.subtitle}>keep it short</div>
+                        <div className={`${styles.title} ${luckiestGuy.className}`}>
                             <span className={styles['size-matters']}>size matters!</span>
                         </div>
                     </h1>
@@ -27,7 +29,7 @@ export default function Home(): ReactElement {
 
                     <div className={styles['input-box']}>
                         <input type="text" placeholder="Put your link here..." />
-                        <button className={acme.className}>Generate</button>
+                        <button>Generate</button>
                     </div>
 
                     <p className={styles['suggestion']}>
@@ -42,7 +44,6 @@ export default function Home(): ReactElement {
                 <Image
                     src={heroIllustration}
                     alt="an illustration of a mobile phone that has a lot of messages, contacts and ratings floating around it"
-                    width={1000}
                 />
             </div>
         </div>

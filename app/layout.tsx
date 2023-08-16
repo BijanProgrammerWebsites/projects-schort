@@ -1,23 +1,33 @@
-import './globals.scss';
-import type {Metadata} from 'next';
-import {Inter} from 'next/font/google';
-import {ReactElement} from 'react';
-import Header from '@/app/components/Header/Header';
+import {ReactElement, ReactNode} from 'react';
 
-const inter = Inter({weight: ['400', '700'], subsets: ['latin']});
+import type {Metadata} from 'next';
+import {Geologica} from 'next/font/google';
+
+import HeaderComponent from '@/app/components/header/header.component';
+import FooterComponent from '@/app/components/footer/footer.component';
+
+import {AuthProvider} from '@/app/providers/auth.provider';
+
+import './globals.scss';
+
+const geologica = Geologica({weight: ['400', '700'], subsets: ['latin']});
 
 export const metadata: Metadata = {
     title: 'Schort',
-    description: 'Keep it short, size matters.',
+    description: 'We can help you generate a short link from any URL.',
 };
 
-export default function RootLayout({children}: {children: React.ReactNode}): ReactElement {
+export default function RootLayout({children}: {children: ReactNode}): ReactElement {
     return (
         <html lang="en">
-            <body className={inter.className}>
-                <Header />
+            <body className={geologica.className}>
+                <AuthProvider>
+                    <HeaderComponent />
 
-                <main className="page-bleed">{children}</main>
+                    <main className="page-bleed">{children}</main>
+
+                    <FooterComponent />
+                </AuthProvider>
             </body>
         </html>
     );

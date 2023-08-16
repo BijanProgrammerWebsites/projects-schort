@@ -1,0 +1,44 @@
+.loading {
+    --size: 1rem;
+
+    display: grid;
+    align-items: end;
+    justify-content: center;
+
+    min-height: calc(2 * var(--size));
+
+    .dots {
+        display: flex;
+        align-items: center;
+        gap: calc(0.5 * var(--size));
+
+        .dot {
+            background-color: var(--color-primary);
+
+            block-size: var(--size);
+            inline-size: var(--size);
+
+            border-radius: 999rem;
+
+            animation: loading-dot-animation 2s ease-in-out infinite;
+
+            @for $i from 1 through 3 {
+                &:nth-of-type(#{$i}) {
+                    animation-delay: #{(0.2 * $i - 10) + "s"};
+                }
+            }
+        }
+    }
+}
+
+@keyframes loading-dot-animation {
+    0%,
+    40%,
+    100% {
+        translate: 0 0;
+    }
+
+    20% {
+        translate: 0 calc(-1 * var(--size));
+    }
+}

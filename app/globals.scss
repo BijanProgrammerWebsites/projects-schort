@@ -54,6 +54,13 @@ body {
 
     overflow-x: hidden;
 
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 2rem;
+
+    min-height: 100vb;
+    min-height: 100dvb;
+
     font-size: 1.6rem;
 
     &::before {
@@ -99,10 +106,6 @@ body {
             var(--size) var(--size),
             var(--size) var(--size);
     }
-
-    > main {
-        margin-block-start: 2rem;
-    }
 }
 
 ul {
@@ -116,6 +119,5 @@ a {
 }
 
 .page-bleed {
-    margin-inline: auto;
     padding-inline: var(--full-width-padding-inline);
 }
