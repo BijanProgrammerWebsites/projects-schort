@@ -32,6 +32,7 @@ It is also possible to customize generated links; Otherwise random one will be c
 
 ![Next.js](https://skillicons.dev/icons?i=nextjs)
 ![TypeScript](https://skillicons.dev/icons?i=ts)
+![PostgreSQL](https://skillicons.dev/icons?i=postgresql)
 ![Prisma](https://skillicons.dev/icons?i=prisma)
 
 ## Contribution
