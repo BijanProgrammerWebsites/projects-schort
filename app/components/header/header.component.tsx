@@ -23,7 +23,7 @@ export default function HeaderComponent(): ReactElement {
             <LinkComponent
                 href="/"
                 variant={LinkComponentVariant.GHOST}
-                size={LinkComponentSize.INHERIT}
+                size={LinkComponentSize.UNSET}
                 fontClassName={acme.className}
             >
                 Schort
@@ -53,11 +53,11 @@ function AuthComponent(): ReactElement {
                 <div>Hello, {session?.user?.name}!</div>
                 <ButtonComponent
                     variant={ButtonComponentVariant.BASIC}
-                    icon={<FaArrowRightFromBracket />}
-                    size={ButtonComponentSize.INHERIT}
+                    size={ButtonComponentSize.NORMAL}
                     aria-label="Log Out"
                     onClick={logoutButtonClickHandler}
                 >
+                    <FaArrowRightFromBracket />
                     Log Out
                 </ButtonComponent>
             </>
@@ -65,7 +65,7 @@ function AuthComponent(): ReactElement {
     }
 
     return (
-        <LinkComponent href="/auth" variant={LinkComponentVariant.BUTTON} size={LinkComponentSize.INHERIT}>
+        <LinkComponent href="/auth" variant={LinkComponentVariant.BUTTON} size={LinkComponentSize.UNSET}>
             Sign Up for FREE
         </LinkComponent>
     );

@@ -6,6 +6,11 @@
 
     position: relative;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
     border: none;
     border-radius: var(--border-radius);
 
@@ -21,9 +26,11 @@
         inset-block-start: 50%;
         inset-inline-start: var(--form-element-padding-inline);
 
-        font-size: var(--icon-size);
-
         translate: 0 -50%;
+
+        svg {
+            font-size: var(--icon-size);
+        }
     }
 
     &:has(.icon) {
@@ -41,15 +48,11 @@
         outline: var(--outline-focus-visible);
     }
 
-    &.rounded {
-        border-radius: 999rem;
-    }
-
     &.basic {
-        --backgronud-color-idle: var(--color-gray-30);
-        --foreground-color-idle: var(--color-gray-90);
+        --backgronud-color-idle: var(--color-gray-90);
+        --foreground-color-idle: var(--color-gray-10);
 
-        --backgronud-color-hover: var(--color-gray-36);
+        --backgronud-color-hover: var(--color-gray-98);
     }
 
     &.primary {
@@ -70,14 +73,28 @@
         --backgronud-color-idle: transparent;
         --foreground-color-idle: var(--color-primary);
 
-        display: inline;
-
         --form-element-padding: 0;
+
+        display: inline;
 
         text-decoration: underline;
     }
 
-    &.large {
+    &.size--inherit {
+        font-size: inherit;
+        font-weight: inherit;
+    }
+
+    &.size--normal {
+        --form-element-padding-block: 0.5em;
+        --form-element-padding-inline: 0.5em;
+        --form-element-padding: var(--form-element-padding-block) var(--form-element-padding-inline);
+
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+
+    &.size--large {
         font-size: 1.8rem;
         font-weight: 700;
     }

@@ -12,13 +12,18 @@
     }
 
     &.button {
+        --form-element-padding-block: 0.5em;
+        --form-element-padding-inline: 0.5em;
+        --form-element-padding: var(--form-element-padding-block) var(--form-element-padding-inline);
+
         background-color: var(--color-primary);
         color: var(--color-primary-opposite);
 
         padding: var(--form-element-padding);
 
-        border-radius: 999rem;
+        border-radius: var(--border-radius);
 
+        font-size: 1.6rem;
         font-weight: 700;
 
         text-decoration: none;
@@ -34,7 +39,7 @@
         text-decoration: none;
     }
 
-    &.large {
+    &.size--large {
         font-size: 1.8rem;
         font-weight: 700;
     }

@@ -11,7 +11,7 @@ export enum LinkComponentVariant {
 }
 
 export enum LinkComponentSize {
-    INHERIT = '',
+    UNSET = '',
     LARGE = 'size--large',
 }
 
@@ -26,7 +26,7 @@ interface LinkComponentProps extends LinkProps {
 export default function LinkComponent({
     target = '_self',
     variant = LinkComponentVariant.BASIC,
-    size = LinkComponentSize.INHERIT,
+    size = LinkComponentSize.UNSET,
     fontClassName,
     children,
     ...linkProps

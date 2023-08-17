@@ -57,6 +57,21 @@ html {
     font-size: 62.5%;
 }
 
+input,
+label,
+select,
+textarea,
+button,
+fieldset,
+legend,
+datalist,
+output,
+option,
+optgroup {
+    font-family: inherit;
+    font-size: inherit;
+}
+
 body {
     background-color: var(--color-gray-10);
     color: var(--color-gray-90);

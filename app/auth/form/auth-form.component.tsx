@@ -8,7 +8,7 @@ import {signIn} from 'next-auth/react';
 
 import {FaEye, FaEyeSlash, FaGithub} from 'react-icons/fa';
 
-import ButtonComponent, {ButtonComponentVariant} from '@/app/components/button/button.component';
+import ButtonComponent, {ButtonComponentSize, ButtonComponentVariant} from '@/app/components/button/button.component';
 
 import styles from './auth-form.module.scss';
 
@@ -76,14 +76,15 @@ export default function AuthFormComponent(): ReactElement {
     return (
         <div className={styles['auth-form']}>
             <header>
-                <h1>{formType === FormType.LOGIN ? 'Log In to Your Account' : 'Create a New Account'}</h1>
+                <h1>{formType === FormType.LOGIN ? 'Welcome Back Buddy!' : "Let's Get Acquainted!"}</h1>
 
                 <p>
                     {formType === FormType.LOGIN ? (
                         <>
-                            First time?{' '}
+                            We haven&apos;t met yet?{' '}
                             <ButtonComponent
                                 variant={ButtonComponentVariant.LINK}
+                                size={ButtonComponentSize.INHERIT}
                                 onClick={(): void => setFormType(FormType.SIGNUP)}
                             >
                                 Create an account
@@ -92,9 +93,10 @@ export default function AuthFormComponent(): ReactElement {
                         </>
                     ) : (
                         <>
-                            Friend?{' '}
+                            Do I know you from somewhere?{' '}
                             <ButtonComponent
                                 variant={ButtonComponentVariant.LINK}
+                                size={ButtonComponentSize.INHERIT}
                                 onClick={(): void => setFormType(FormType.LOGIN)}
                             >
                                 Log in

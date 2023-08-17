@@ -58,20 +58,22 @@
                     .field {
                         background-color: var(--color-gray-10);
 
-                        display: grid;
-                        grid-template-columns: 1fr auto;
+                        display: flex;
+                        align-items: center;
                         gap: 0.5rem;
 
                         padding: var(--form-element-padding);
 
                         border-radius: var(--border-radius);
 
+                        font-size: 1.8rem;
+
                         input {
+                            flex: 1 1 0;
+
                             background-color: transparent;
 
                             border: none;
-
-                            font-size: 1.8rem;
 
                             &:focus {
                                 outline: none;
