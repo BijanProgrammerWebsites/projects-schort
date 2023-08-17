@@ -9,6 +9,9 @@ import {PrismaService} from '@/app/services/prisma.service';
 const prisma = PrismaService.client;
 
 export const nextAuthOptions: NextAuthOptions = {
+    pages: {
+        signIn: '/auth',
+    },
     providers: [
         GitHubProvider({
             clientId: process.env.GITHUB_CLIENT_ID!,

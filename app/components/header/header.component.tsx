@@ -5,7 +5,9 @@ import {ReactElement} from 'react';
 import {Acme} from 'next/font/google';
 import Link from 'next/link';
 
-import {useSession} from 'next-auth/react';
+import {signOut, useSession} from 'next-auth/react';
+
+import {FaArrowRightFromBracket} from 'react-icons/fa6';
 
 import Loading from '@/app/loading';
 
@@ -30,12 +32,23 @@ export default function HeaderComponent(): ReactElement {
 function AuthComponent(): ReactElement {
     const {data: session, status: authStatus} = useSession();
 
+    const logoutButtonClickHandler = async (): Promise<void> => {
+        await signOut({redirect: false});
+    };
+
     if (authStatus === 'loading') {
         return <Loading />;
     }
 
     if (authStatus === 'authenticated') {
-        return <div>Hello, {session?.user?.name}!</div>;
+        return (
+            <>
+                <div>Hello, {session?.user?.name}!</div>
+                <button className={styles['logout']} aria-label="Log Out" onClick={logoutButtonClickHandler}>
+                    <FaArrowRightFromBracket />
+                </button>
+            </>
+        );
     }
 
     return (

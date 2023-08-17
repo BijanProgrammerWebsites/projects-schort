@@ -13,6 +13,22 @@
     }
 
     .auth {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        .logout {
+            background-color: transparent;
+            color: var(--color-danger);
+
+            display: grid;
+            place-items: center;
+
+            border: none;
+
+            font-size: 1.2em;
+        }
+
         .call-to-action {
             background-color: var(--color-primary);
             color: var(--color-primary-opposite);
