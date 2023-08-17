@@ -11,6 +11,8 @@ import {FaArrowRightFromBracket} from 'react-icons/fa6';
 
 import Loading from '@/app/loading';
 
+import ButtonComponent, {ButtonComponentVariant} from '@/app/components/button/button.component';
+
 import styles from './header.module.scss';
 
 const acme = Acme({weight: '400', subsets: ['latin']});
@@ -44,9 +46,16 @@ function AuthComponent(): ReactElement {
         return (
             <>
                 <div>Hello, {session?.user?.name}!</div>
-                <button className={styles['logout']} aria-label="Log Out" onClick={logoutButtonClickHandler}>
-                    <FaArrowRightFromBracket />
-                </button>
+                <ButtonComponent
+                    variant={ButtonComponentVariant.BASIC}
+                    icon={<FaArrowRightFromBracket />}
+                    fontSize="1em"
+                    fontWeight={400}
+                    aria-label="Log Out"
+                    onClick={logoutButtonClickHandler}
+                >
+                    Log Out
+                </ButtonComponent>
             </>
         );
     }

@@ -4,7 +4,9 @@ import {Luckiest_Guy} from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import heroIllustration from './assets/illustrations/hero.svg';
+import ButtonComponent, {ButtonComponentVariant} from '@/app/components/button/button.component';
+
+import heroIllustration from '@/app/assets/illustrations/hero.svg';
 
 import styles from './page.module.scss';
 
@@ -29,7 +31,7 @@ export default function Home(): ReactElement {
 
                     <div className={styles['input-box']}>
                         <input type="text" placeholder="Put your link here..." />
-                        <button>Generate</button>
+                        <ButtonComponent variant={ButtonComponentVariant.PRIMARY}>Generate</ButtonComponent>
                     </div>
 
                     <p className={styles['suggestion']}>

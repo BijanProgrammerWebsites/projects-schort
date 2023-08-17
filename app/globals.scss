@@ -5,6 +5,7 @@
     --color-gray-80: hsl(36deg 5% 80%);
     --color-gray-70: hsl(36deg 5% 70%);
     --color-gray-40: hsl(36deg 5% 40%);
+    --color-gray-36: hsl(36deg 5% 36%);
     --color-gray-30: hsl(36deg 5% 30%);
     --color-gray-20: hsl(36deg 5% 20%);
     --color-gray-16: hsl(36deg 5% 16%);
@@ -21,6 +22,7 @@
     --color-success: hsl(140deg 80% 50%);
 
     --color-danger: hsl(340deg 90% 50%);
+    --color-danger-opposite: var(--color-gray-10);
 
     --color-border-fade: hsl(36deg 10% 90% / 20%);
 

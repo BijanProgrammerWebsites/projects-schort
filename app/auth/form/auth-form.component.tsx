@@ -8,6 +8,8 @@ import {signIn} from 'next-auth/react';
 
 import {FaEye, FaEyeSlash, FaGithub} from 'react-icons/fa';
 
+import ButtonComponent, {ButtonComponentVariant} from '@/app/components/button/button.component';
+
 import styles from './auth-form.module.scss';
 
 enum FormType {
@@ -80,17 +82,23 @@ export default function AuthFormComponent(): ReactElement {
                     {formType === FormType.LOGIN ? (
                         <>
                             First time?{' '}
-                            <button type="button" onClick={(): void => setFormType(FormType.SIGNUP)}>
+                            <ButtonComponent
+                                variant={ButtonComponentVariant.LINK}
+                                onClick={(): void => setFormType(FormType.SIGNUP)}
+                            >
                                 Create an account
-                            </button>
+                            </ButtonComponent>
                             .
                         </>
                     ) : (
                         <>
                             Friend?{' '}
-                            <button type="button" onClick={(): void => setFormType(FormType.LOGIN)}>
+                            <ButtonComponent
+                                variant={ButtonComponentVariant.LINK}
+                                onClick={(): void => setFormType(FormType.LOGIN)}
+                            >
                                 Log in
-                            </button>
+                            </ButtonComponent>
                             .
                         </>
                     )}
@@ -100,10 +108,7 @@ export default function AuthFormComponent(): ReactElement {
             <main>
                 <form onSubmit={formSubmitHandler}>
                     <div className={styles.providers}>
-                        <button className={styles.github} type="button">
-                            <FaGithub></FaGithub>
-                            {formType} with GitHub
-                        </button>
+                        <ButtonComponent icon={<FaGithub />}>{formType} with GitHub</ButtonComponent>
                     </div>
 
                     <div className={styles.separator}>or</div>
@@ -147,16 +152,18 @@ export default function AuthFormComponent(): ReactElement {
                                     value={password}
                                     onChange={(e): void => setPassword(e.target.value)}
                                 />
-                                <button
-                                    type="button"
+                                <ButtonComponent
+                                    variant={ButtonComponentVariant.GHOST}
                                     onClick={(): void => setIsPasswordVisible((previousValue) => !previousValue)}
                                 >
                                     {isPasswordVisible ? <FaEye /> : <FaEyeSlash />}
-                                </button>
+                                </ButtonComponent>
                             </div>
                         </label>
 
-                        <button type="submit">{formType}</button>
+                        <ButtonComponent variant={ButtonComponentVariant.PRIMARY} type="submit">
+                            {formType}
+                        </ButtonComponent>
                     </div>
 
                     {error && <div className={styles.error}>{error}</div>}

@@ -1,0 +1,81 @@
+.button {
+    --padding: 0.5em;
+
+    background-color: var(--backgronud-color-idle);
+    color: var(--foreground-color-idle);
+
+    position: relative;
+
+    display: grid;
+    place-items: center;
+
+    border: none;
+    border-radius: var(--border-radius);
+
+    padding: var(--padding);
+
+    transition-property: background-color, color;
+    transition-delay: var(--color-primary);
+
+    cursor: pointer;
+
+    .icon {
+        position: absolute;
+        inset-block-start: var(--padding);
+        inset-inline-start: var(--padding);
+    }
+
+    &:has(.icon) {
+        --icon-size: 1em;
+        --gap: 0.5em;
+
+        padding-inline-start: calc(var(--padding) + var(--icon-size) + var(--gap));
+    }
+
+    &:hover {
+        background-color: var(--backgronud-color-hover, var(--backgronud-color-idle));
+        color: var(--foreground-color-hover, var(--foreground-color-idle));
+    }
+
+    &:focus-visible {
+        outline: 0.2rem dashed var(--color-gray-90);
+    }
+
+    &.rounded {
+        border-radius: 999rem;
+    }
+
+    &.basic {
+        --backgronud-color-idle: var(--color-gray-30);
+        --foreground-color-idle: var(--color-gray-90);
+
+        --backgronud-color-hover: var(--color-gray-36);
+    }
+
+    &.primary {
+        --backgronud-color-idle: var(--color-primary);
+        --foreground-color-idle: var(--color-primary-opposite);
+
+        --backgronud-color-hover: var(--color-primary-lighter);
+    }
+
+    &.ghost {
+        --backgronud-color-idle: trasnparent;
+        --foreground-color-idle: inherit;
+
+        --padding: 0;
+    }
+
+    &.link {
+        --backgronud-color-idle: transparent;
+        --foreground-color-idle: var(--color-primary);
+
+        display: inline;
+
+        --padding: 0;
+
+        font-size: inherit;
+
+        text-decoration: underline;
+    }
+}
