@@ -2,9 +2,9 @@ import {ReactElement} from 'react';
 
 import {Luckiest_Guy} from 'next/font/google';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import ButtonComponent, {ButtonComponentVariant} from '@/app/components/button/button.component';
+import LinkComponent from '@/app/components/link/link.component';
 
 import heroIllustration from '@/app/assets/illustrations/hero.svg';
 
@@ -37,9 +37,7 @@ export default function Home(): ReactElement {
                     <p className={styles['suggestion']}>
                         <strong>But Wait!</strong> There is an even better option... Sign up and see the links that you
                         have been generates. You can even edit them or remove them entirely.{' '}
-                        <Link href="/auth" className={styles['call-to-action']}>
-                            Sign up for FREE
-                        </Link>
+                        <LinkComponent href="/auth">Sign up for FREE</LinkComponent>
                     </p>
                 </div>
 

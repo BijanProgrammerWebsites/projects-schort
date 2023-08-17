@@ -77,6 +77,10 @@
                                 outline: none;
                             }
                         }
+
+                        &:has(input:focus-visible) {
+                            outline: var(--outline-focus-visible);
+                        }
                     }
                 }
             }

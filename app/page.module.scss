@@ -70,7 +70,7 @@
                     }
 
                     &:focus-visible {
-                        outline: 0.2rem dashed var(--color-primary);
+                        outline: var(--outline-focus-visible);
                     }
                 }
             }
@@ -87,12 +87,6 @@
                     font-weight: 700;
 
                     text-transform: uppercase;
-                }
-
-                .call-to-action {
-                    color: var(--color-primary);
-
-                    text-decoration: underline;
                 }
             }
         }

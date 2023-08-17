@@ -6,9 +6,7 @@
 
     padding-block: 2rem;
 
-    .logo {
-        color: inherit;
-
+    a {
         font-size: 3.6rem;
     }
 
@@ -16,20 +14,5 @@
         display: flex;
         align-items: center;
         gap: 2rem;
-
-        .call-to-action {
-            background-color: var(--color-primary);
-            color: var(--color-primary-opposite);
-
-            padding: 0.5em 1em;
-
-            border-radius: 999rem;
-
-            font-weight: 700;
-
-            &:focus-visible {
-                outline: 0.2rem dashed var(--color-gray-90);
-            }
-        }
     }
 }

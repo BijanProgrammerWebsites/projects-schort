@@ -1,8 +1,8 @@
 import {ReactElement} from 'react';
 
-import Link from 'next/link';
-
 import {FaGithub} from 'react-icons/fa';
+
+import LinkComponent, {LinkComponentVariant} from '@/app/components/link/link.component';
 
 import styles from './footer.module.scss';
 
@@ -11,14 +11,14 @@ export default function FooterComponent(): ReactElement {
         <footer className={'page-bleed ' + styles.footer}>
             <small className={styles.copyright}>Copyright &copy; 2023 BijanProgrammer.com</small>
 
-            <Link
+            <LinkComponent
                 href="https://github.com/BijanProgrammerWebsites/projects-schort/"
-                className={styles.external}
+                variant={LinkComponentVariant.GHOST}
                 target="_blank"
             >
                 <FaGithub />
                 Source on GitHub
-            </Link>
+            </LinkComponent>
         </footer>
     );
 }

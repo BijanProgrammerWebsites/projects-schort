@@ -9,12 +9,16 @@ export enum ButtonComponentVariant {
     LINK = 'link',
 }
 
+export enum ButtonComponentSize {
+    INHERIT = '',
+    LARGE = 'large',
+}
+
 interface ButtonComponentProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
     icon?: ReactElement;
     variant?: ButtonComponentVariant;
+    size?: ButtonComponentSize;
     isRounded?: boolean;
-    fontSize?: string;
-    fontWeight?: number;
     children?: ReactNode;
 }
 
@@ -22,16 +26,14 @@ export default function ButtonComponent({
     type = 'button',
     icon,
     variant = ButtonComponentVariant.BASIC,
+    size = ButtonComponentSize.LARGE,
     isRounded,
-    fontSize = '1.8rem',
-    fontWeight = 700,
     children,
     ...htmlButtonElementProps
 }: ButtonComponentProps): ReactElement {
     return (
         <button
-            className={`${styles.button} ${styles[variant]} ${isRounded ? 'rounded' : ''}`}
-            style={{fontSize, fontWeight}}
+            className={`${styles.button} ${styles[variant]} ${styles[size]} ${isRounded ? 'rounded' : ''}`}
             type={type}
             {...htmlButtonElementProps}
         >
