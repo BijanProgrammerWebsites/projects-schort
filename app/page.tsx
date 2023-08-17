@@ -37,7 +37,7 @@ export default function Home(): ReactElement {
                     <p className={styles['suggestion']}>
                         <strong>But Wait!</strong> There is an even better option... Sign up and see the links that you
                         have been generates. You can even edit them or remove them entirely.{' '}
-                        <LinkComponent href="/auth">Sign up for FREE</LinkComponent>
+                        <LinkComponent href="/auth">Sign up for FREE</LinkComponent>.
                     </p>
                 </div>
 

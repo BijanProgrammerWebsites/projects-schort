@@ -38,7 +38,7 @@ export default function ButtonComponent({
             {...htmlButtonElementProps}
         >
             {icon && <div className={styles.icon}>{icon}</div>}
-            <div className={styles.children}>{children}</div>
+            {children}
         </button>
     );
 }

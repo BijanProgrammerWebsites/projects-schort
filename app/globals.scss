@@ -29,6 +29,10 @@
     --color-box-shadow-subtle: hsl(36deg 10% 20% / 8%);
     --box-shadow-subtle: 0 0.3rem 0.7rem 0 var(--color-box-shadow-subtle);
 
+    --form-element-padding-block: 1em;
+    --form-element-padding-inline: 1em;
+    --form-element-padding: var(--form-element-padding-block) var(--form-element-padding-inline);
+
     --border-radius: 0.4rem;
 
     --outline-focus-visible: 0.2rem dashed var(--color-gray-90);
@@ -115,6 +119,10 @@ body {
 
 ul {
     list-style: none;
+}
+
+svg {
+    vertical-align: middle;
 }
 
 .page-bleed {

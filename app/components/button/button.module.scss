@@ -1,5 +1,5 @@
 .button {
-    --padding: 0.5em;
+    --icon-size: 1.2em;
 
     background-color: var(--backgronud-color-idle);
     color: var(--foreground-color-idle);
@@ -9,7 +9,7 @@
     border: none;
     border-radius: var(--border-radius);
 
-    padding: var(--padding);
+    padding: var(--form-element-padding);
 
     transition-property: background-color, color;
     transition-delay: var(--color-primary);
@@ -18,20 +18,18 @@
 
     .icon {
         position: absolute;
-        inset-block-start: var(--padding);
-        inset-inline-start: var(--padding);
-    }
+        inset-block-start: 50%;
+        inset-inline-start: var(--form-element-padding-inline);
 
-    .children {
-        display: grid;
-        place-items: center;
+        font-size: var(--icon-size);
+
+        translate: 0 -50%;
     }
 
     &:has(.icon) {
-        --icon-size: 1em;
         --gap: 0.5em;
 
-        padding-inline-start: calc(var(--padding) + var(--icon-size) + var(--gap));
+        padding-inline: calc(var(--form-element-padding-inline) + var(--icon-size) + var(--gap));
     }
 
     &:hover {
@@ -65,7 +63,7 @@
         --backgronud-color-idle: trasnparent;
         --foreground-color-idle: inherit;
 
-        --padding: 0;
+        --form-element-padding: 0;
     }
 
     &.link {
@@ -74,7 +72,7 @@
 
         display: inline;
 
-        --padding: 0;
+        --form-element-padding: 0;
 
         text-decoration: underline;
     }

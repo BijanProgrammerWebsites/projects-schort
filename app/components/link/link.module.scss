@@ -15,11 +15,10 @@
         background-color: var(--color-primary);
         color: var(--color-primary-opposite);
 
-        padding: 1rem;
+        padding: var(--form-element-padding);
 
         border-radius: 999rem;
 
-        font-size: 1.8rem;
         font-weight: 700;
 
         text-decoration: none;

@@ -65,7 +65,7 @@ function AuthComponent(): ReactElement {
     }
 
     return (
-        <LinkComponent href="/auth" variant={LinkComponentVariant.BUTTON} size={LinkComponentSize.LARGE}>
+        <LinkComponent href="/auth" variant={LinkComponentVariant.BUTTON} size={LinkComponentSize.INHERIT}>
             Sign Up for FREE
         </LinkComponent>
     );
