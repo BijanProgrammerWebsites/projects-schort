@@ -1,6 +1,8 @@
-import {HTMLAttributeAnchorTarget, ReactElement, ReactNode} from 'react';
+import {ReactElement, ReactNode} from 'react';
 
 import Link, {LinkProps} from 'next/link';
+
+import {FaArrowUpRightFromSquare} from 'react-icons/fa6';
 
 import styles from './link.module.scss';
 
@@ -16,7 +18,7 @@ export enum LinkComponentSize {
 }
 
 interface LinkComponentProps extends LinkProps {
-    target?: HTMLAttributeAnchorTarget;
+    isExternal?: boolean;
     variant?: LinkComponentVariant;
     size?: LinkComponentSize;
     fontClassName?: string;
@@ -24,7 +26,7 @@ interface LinkComponentProps extends LinkProps {
 }
 
 export default function LinkComponent({
-    target = '_self',
+    isExternal = false,
     variant = LinkComponentVariant.BASIC,
     size = LinkComponentSize.UNSET,
     fontClassName,
@@ -34,10 +36,11 @@ export default function LinkComponent({
     return (
         <Link
             className={`${styles.link} ${styles[variant]} ${styles[size]} ${fontClassName}`}
-            target={target}
+            target={isExternal ? '_blank' : '_self'}
             {...linkProps}
         >
             {children}
+            {isExternal && <FaArrowUpRightFromSquare />}
         </Link>
     );
 }

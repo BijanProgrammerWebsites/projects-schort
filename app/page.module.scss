@@ -2,6 +2,7 @@
     .hero {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        align-items: center;
         gap: 2rem;
 
         padding-block: 12rem 8rem;
@@ -42,52 +43,6 @@
 
                 font-size: 2rem;
                 line-height: 1.4;
-            }
-
-            .input-box {
-                display: flex;
-                align-items: stretch;
-                gap: 1rem;
-
-                min-width: 100%;
-
-                margin-block-end: 2rem;
-
-                input {
-                    flex: 1 1 0;
-
-                    background-color: var(--color-gray-16);
-
-                    padding: var(--form-element-padding);
-
-                    border: none;
-                    border-radius: var(--border-radius);
-
-                    font-size: 1.8rem;
-
-                    &:focus {
-                        outline: none;
-                    }
-
-                    &:focus-visible {
-                        outline: var(--outline-focus-visible);
-                    }
-                }
-            }
-
-            .suggestion {
-                color: var(--color-gray-70);
-
-                font-size: 1.8rem;
-
-                strong {
-                    color: var(--color-primary);
-
-                    font-size: 2.4rem;
-                    font-weight: 700;
-
-                    text-transform: uppercase;
-                }
             }
         }
 

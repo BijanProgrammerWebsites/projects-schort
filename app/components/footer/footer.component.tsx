@@ -14,7 +14,7 @@ export default function FooterComponent(): ReactElement {
             <LinkComponent
                 href="https://github.com/BijanProgrammerWebsites/projects-schort/"
                 variant={LinkComponentVariant.GHOST}
-                target="_blank"
+                isExternal={true}
             >
                 <FaGithub />
                 Source on GitHub
