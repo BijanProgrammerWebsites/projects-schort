@@ -67,6 +67,7 @@ export default function GeneratorFormComponents({
                                     <input
                                         type="url"
                                         name="url"
+                                        required
                                         value={original}
                                         onChange={(e): void => setOriginal(e.target.value)}
                                     />
