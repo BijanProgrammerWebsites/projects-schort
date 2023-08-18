@@ -76,6 +76,7 @@ body {
     background-color: var(--color-gray-10);
     color: var(--color-gray-90);
 
+    position: relative;
     overflow-x: hidden;
 
     display: grid;
@@ -130,6 +131,10 @@ body {
             var(--size) var(--size),
             var(--size) var(--size);
     }
+}
+
+p {
+    line-height: 1.4;
 }
 
 ul {

@@ -10,6 +10,7 @@ import {FaEye, FaEyeSlash, FaGithub} from 'react-icons/fa';
 
 import ButtonComponent, {ButtonComponentSize, ButtonComponentVariant} from '@/app/components/button/button.component';
 
+import formStyles from '@/app/styles/form.module.scss';
 import styles from './auth-form.module.scss';
 
 enum FormType {
@@ -70,102 +71,104 @@ export default function AuthFormComponent(): ReactElement {
 
     return (
         <div className={styles['auth-form']}>
-            <header>
-                <h1>{formType === FormType.LOGIN ? 'Welcome Back Buddy!' : "Let's Get Acquainted!"}</h1>
+            <div className={formStyles['form-container']}>
+                <header>
+                    <h1>{formType === FormType.LOGIN ? 'Welcome Back Buddy!' : "Let's Get Acquainted!"}</h1>
 
-                <p>
-                    {formType === FormType.LOGIN ? (
-                        <>
-                            We haven&apos;t met yet?{' '}
-                            <ButtonComponent
-                                variant={ButtonComponentVariant.LINK}
-                                size={ButtonComponentSize.INHERIT}
-                                onClick={(): void => setFormType(FormType.SIGNUP)}
-                            >
-                                Create an account
-                            </ButtonComponent>
-                            .
-                        </>
-                    ) : (
-                        <>
-                            Do I know you from somewhere?{' '}
-                            <ButtonComponent
-                                variant={ButtonComponentVariant.LINK}
-                                size={ButtonComponentSize.INHERIT}
-                                onClick={(): void => setFormType(FormType.LOGIN)}
-                            >
-                                Log in
-                            </ButtonComponent>
-                            .
-                        </>
-                    )}
-                </p>
-            </header>
+                    <p>
+                        {formType === FormType.LOGIN ? (
+                            <>
+                                We haven&apos;t met yet?{' '}
+                                <ButtonComponent
+                                    variant={ButtonComponentVariant.LINK}
+                                    size={ButtonComponentSize.INHERIT}
+                                    onClick={(): void => setFormType(FormType.SIGNUP)}
+                                >
+                                    Create an account
+                                </ButtonComponent>
+                                .
+                            </>
+                        ) : (
+                            <>
+                                Do I know you from somewhere?{' '}
+                                <ButtonComponent
+                                    variant={ButtonComponentVariant.LINK}
+                                    size={ButtonComponentSize.INHERIT}
+                                    onClick={(): void => setFormType(FormType.LOGIN)}
+                                >
+                                    Log in
+                                </ButtonComponent>
+                                .
+                            </>
+                        )}
+                    </p>
+                </header>
 
-            <main>
-                <form onSubmit={formSubmitHandler}>
-                    <div className={styles.providers}>
-                        <ButtonComponent icon={<FaGithub />}>{formType} with GitHub</ButtonComponent>
-                    </div>
+                <main>
+                    <form onSubmit={formSubmitHandler}>
+                        <div className={formStyles['fields-wrapper']}>
+                            <ButtonComponent icon={<FaGithub />}>{formType} with GitHub</ButtonComponent>
+                        </div>
 
-                    <div className={styles.separator}>or</div>
+                        <div className={formStyles.separator}>or</div>
 
-                    <div className={styles.credentials}>
-                        {formType === FormType.SIGNUP && (
+                        <div className={formStyles['fields-wrapper']}>
+                            {formType === FormType.SIGNUP && (
+                                <label>
+                                    <div className={formStyles.title}>Username</div>
+                                    <div className={formStyles.field}>
+                                        <input
+                                            type="text"
+                                            name="username"
+                                            required
+                                            value={username}
+                                            onChange={(e): void => setUsername(e.target.value)}
+                                        />
+                                    </div>
+                                </label>
+                            )}
+
                             <label>
-                                <div className={styles.title}>Username</div>
-                                <div className={styles.field}>
+                                <div className={formStyles.title}>Email</div>
+                                <div className={formStyles.field}>
                                     <input
-                                        type="text"
-                                        name="username"
+                                        type="email"
+                                        name="email"
                                         required
-                                        value={username}
-                                        onChange={(e): void => setUsername(e.target.value)}
+                                        value={email}
+                                        onChange={(e): void => setEmail(e.target.value)}
                                     />
                                 </div>
                             </label>
-                        )}
 
-                        <label>
-                            <div className={styles.title}>Email</div>
-                            <div className={styles.field}>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    required
-                                    value={email}
-                                    onChange={(e): void => setEmail(e.target.value)}
-                                />
-                            </div>
-                        </label>
+                            <label>
+                                <div className={formStyles.title}>Password</div>
+                                <div className={formStyles.field}>
+                                    <input
+                                        type={isPasswordVisible ? 'text' : 'password'}
+                                        name="password"
+                                        required
+                                        value={password}
+                                        onChange={(e): void => setPassword(e.target.value)}
+                                    />
+                                    <ButtonComponent
+                                        variant={ButtonComponentVariant.GHOST}
+                                        onClick={(): void => setIsPasswordVisible((previousValue) => !previousValue)}
+                                    >
+                                        {isPasswordVisible ? <FaEye /> : <FaEyeSlash />}
+                                    </ButtonComponent>
+                                </div>
+                            </label>
 
-                        <label>
-                            <div className={styles.title}>Password</div>
-                            <div className={styles.field}>
-                                <input
-                                    type={isPasswordVisible ? 'text' : 'password'}
-                                    name="password"
-                                    required
-                                    value={password}
-                                    onChange={(e): void => setPassword(e.target.value)}
-                                />
-                                <ButtonComponent
-                                    variant={ButtonComponentVariant.GHOST}
-                                    onClick={(): void => setIsPasswordVisible((previousValue) => !previousValue)}
-                                >
-                                    {isPasswordVisible ? <FaEye /> : <FaEyeSlash />}
-                                </ButtonComponent>
-                            </div>
-                        </label>
+                            <ButtonComponent variant={ButtonComponentVariant.PRIMARY} type="submit">
+                                {formType}
+                            </ButtonComponent>
+                        </div>
 
-                        <ButtonComponent variant={ButtonComponentVariant.PRIMARY} type="submit">
-                            {formType}
-                        </ButtonComponent>
-                    </div>
-
-                    {error && <div className={styles.error}>{error}</div>}
-                </form>
-            </main>
+                        {error && <div className={formStyles.error}>{error}</div>}
+                    </form>
+                </main>
+            </div>
         </div>
     );
 }

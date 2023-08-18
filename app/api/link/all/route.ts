@@ -3,7 +3,7 @@ import {NextResponse} from 'next/server';
 import {getServerSession} from 'next-auth/next';
 import {nextAuthOptions} from '@/app/api/auth/[...nextauth]/options';
 
-import {Link} from '.prisma/client';
+import {Link} from '@prisma/client';
 
 import {PrismaService} from '@/app/services/prisma.service';
 
@@ -16,6 +16,10 @@ export async function GET(): Promise<NextResponse<Link[]>> {
         return NextResponse.json([]);
     }
 
-    const links = await prisma.link.findMany({where: {user: {email: session.user.email}}});
+    const links = await prisma.link.findMany({
+        where: {user: {email: session.user.email}},
+        orderBy: {updatedAt: 'desc'},
+    });
+
     return NextResponse.json(links);
 }

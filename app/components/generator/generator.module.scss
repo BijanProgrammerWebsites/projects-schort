@@ -1,78 +1,18 @@
 .generator-component {
-    max-width: 60rem;
+    display: grid;
+    grid-template-areas: "form guide" "list list";
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
 
-    margin-inline: auto;
-
-    form {
-        display: flex;
-        align-items: stretch;
-        gap: 1rem;
-
-        min-width: 100%;
-
-        margin-block-end: 2rem;
-
-        input {
-            flex: 1 1 0;
-
-            background-color: var(--color-gray-16);
-
-            padding: var(--form-element-padding);
-
-            border: none;
-            border-radius: var(--border-radius);
-
-            font-size: 1.8rem;
-
-            &:focus {
-                outline: none;
-            }
-
-            &:focus-visible {
-                outline: var(--outline-focus-visible);
-            }
-        }
+    .form {
+        grid-area: form;
     }
 
-    .suggestion {
-        color: var(--color-gray-70);
-
-        margin-block-end: 4rem;
-
-        font-size: 1.8rem;
-
-        strong {
-            color: var(--color-primary);
-
-            font-size: 2.4rem;
-            font-weight: 700;
-
-            text-transform: uppercase;
-        }
+    .guide {
+        grid-area: guide;
     }
 
-    > ul {
-        display: grid;
-        gap: 2rem;
-
-        > li {
-            background-color: var(--color-gray-16);
-
-            display: grid;
-            gap: 1rem;
-
-            padding: 2rem;
-
-            border-radius: var(--border-radius);
-
-            .alias {
-                font-size: 2.4rem;
-                font-weight: 700;
-            }
-
-            .original {
-                font-size: 1.8rem;
-            }
-        }
+    .list {
+        grid-area: list;
     }
 }

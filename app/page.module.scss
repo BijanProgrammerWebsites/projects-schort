@@ -42,7 +42,23 @@
                 margin-block-end: 8rem;
 
                 font-size: 2rem;
-                line-height: 1.4;
+            }
+
+            .suggestion {
+                color: var(--color-gray-70);
+
+                margin-block-end: 4rem;
+
+                font-size: 1.8rem;
+
+                strong {
+                    color: var(--color-primary);
+
+                    font-size: 2.4rem;
+                    font-weight: 700;
+
+                    text-transform: uppercase;
+                }
             }
         }
 
