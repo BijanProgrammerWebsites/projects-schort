@@ -50,12 +50,11 @@ export default function GeneratorFormComponents({
                     <form onSubmit={formSubmitHandler}>
                         <div className={formStyles['fields-wrapper']}>
                             <label>
-                                <div className={formStyles.title}>Alias</div>
+                                <div className={formStyles.title}>Alias (Optional)</div>
                                 <div className={formStyles.field}>
                                     <input
                                         type="text"
                                         name="alias"
-                                        placeholder="Choose an alias for your link... (Optional)"
                                         value={alias}
                                         onChange={(e): void => setAlias(e.target.value)}
                                     />
@@ -68,7 +67,6 @@ export default function GeneratorFormComponents({
                                     <input
                                         type="url"
                                         name="url"
-                                        placeholder="Put your link here..."
                                         value={original}
                                         onChange={(e): void => setOriginal(e.target.value)}
                                     />
