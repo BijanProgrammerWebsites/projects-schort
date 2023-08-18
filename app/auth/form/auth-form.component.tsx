@@ -51,13 +51,8 @@ export default function AuthFormComponent(): ReactElement {
                 setError(result.error);
             }
         } else {
-            console.log('process.env.NEXT_PUBLIC_HOST', process.env.NEXT_PUBLIC_HOST);
-
-            const url = new URL('/api/auth/sign-up', process.env.NEXT_PUBLIC_HOST);
-            console.log('url', url);
-
             try {
-                const response = await fetch(url, {
+                const response = await fetch('/api/auth/sign-up', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
