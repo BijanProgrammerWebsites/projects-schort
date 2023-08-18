@@ -18,7 +18,7 @@ export default function GeneratorFormComponents({
     const formSubmitHandler = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
-        const response = await fetch('/api/link/create', {
+        const response = await fetch('/api/link', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

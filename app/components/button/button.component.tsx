@@ -5,6 +5,7 @@ import styles from './button.module.scss';
 export enum ButtonComponentVariant {
     BASIC = 'basic',
     PRIMARY = 'primary',
+    DANGER = 'danger',
     GHOST = 'ghost',
     LINK = 'link',
 }
@@ -29,11 +30,12 @@ export default function ButtonComponent({
     variant = ButtonComponentVariant.BASIC,
     size = ButtonComponentSize.LARGE,
     children,
+    className,
     ...htmlButtonElementProps
 }: ButtonComponentProps): ReactElement {
     return (
         <button
-            className={`${styles.button} ${styles[variant]} ${styles[size]}`}
+            className={`${styles.button} ${styles[variant]} ${styles[size]} ${className}`}
             type={type}
             {...htmlButtonElementProps}
         >

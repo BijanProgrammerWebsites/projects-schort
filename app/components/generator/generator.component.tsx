@@ -21,7 +21,7 @@ export default function GeneratorComponent(): ReactElement {
     const [clientLinks, setClientLinks] = useState<Link[]>([]);
 
     const fetchServerLinks = async (): Promise<void> => {
-        const response = await fetch('/api/link/all');
+        const response = await fetch('/api/link');
         const data: Link[] = await response.json();
 
         setServerLinks(data);
@@ -55,9 +55,9 @@ export default function GeneratorComponent(): ReactElement {
                 {authStatus === 'loading' ? (
                     <Loading />
                 ) : authStatus === 'authenticated' ? (
-                    <GeneratorListComponent links={serverLinks} />
+                    <GeneratorListComponent links={serverLinks} setLinks={setServerLinks} />
                 ) : (
-                    <GeneratorListComponent links={clientLinks} />
+                    <GeneratorListComponent links={clientLinks} setLinks={setClientLinks} />
                 )}
             </div>
         </div>

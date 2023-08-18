@@ -62,6 +62,13 @@
         --backgronud-color-hover: var(--color-primary-lighter);
     }
 
+    &.danger {
+        --backgronud-color-idle: var(--color-danger);
+        --foreground-color-idle: var(--color-danger-opposite);
+
+        --backgronud-color-hover: var(--color-danger-lighter);
+    }
+
     &.ghost {
         --backgronud-color-idle: trasnparent;
         --foreground-color-idle: inherit;
