@@ -34,6 +34,9 @@ export default function GeneratorFormComponents({
             if (!addedLink) {
                 console.log('error');
             } else {
+                setAlias('');
+                setOriginal('');
+
                 await addLinkToList(addedLink);
             }
         }
