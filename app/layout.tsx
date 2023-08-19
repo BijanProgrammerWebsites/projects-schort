@@ -6,7 +6,8 @@ import {Geologica} from 'next/font/google';
 import HeaderComponent from '@/app/components/header/header.component';
 import FooterComponent from '@/app/components/footer/footer.component';
 
-import {AuthProvider} from '@/app/providers/auth.provider';
+import AuthProvider from '@/app/providers/auth.provider';
+import SnackbarProvider from '@/app/providers/snackbar/snackbar.provider';
 
 import './globals.scss';
 
@@ -22,11 +23,13 @@ export default function RootLayout({children}: {children: ReactNode}): ReactElem
         <html lang="en">
             <body className={geologica.className}>
                 <AuthProvider>
-                    <HeaderComponent />
+                    <SnackbarProvider>
+                        <HeaderComponent />
 
-                    <main className="page-bleed">{children}</main>
+                        <main className="page-bleed">{children}</main>
 
-                    <FooterComponent />
+                        <FooterComponent />
+                    </SnackbarProvider>
                 </AuthProvider>
             </body>
         </html>
