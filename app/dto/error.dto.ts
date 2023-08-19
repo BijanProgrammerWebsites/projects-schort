@@ -1,3 +1,3 @@
-export interface ErrorDto {
-    message: string;
+export class ErrorDto {
+    public constructor(public message: string) {}
 }
