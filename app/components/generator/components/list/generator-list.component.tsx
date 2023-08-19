@@ -108,7 +108,18 @@ function GeneratorListItemComponent({
         <li>
             <form onSubmit={(e): Promise<void> => formSubmitHandler(e)}>
                 <div className={`${formStyles.field} ${styles.field}`}>
-                    <input type="text" value={alias} readOnly={!isEditable} required onChange={inputChangeHandler} />
+                    <input
+                        type="text"
+                        name="alias"
+                        readOnly={!isEditable}
+                        minLength={3}
+                        maxLength={32}
+                        pattern="[a-z0-9\-]+"
+                        required
+                        value={alias}
+                        onChange={inputChangeHandler}
+                        data-show-border-vaildation={alias !== link.alias}
+                    />
                 </div>
 
                 <div className={styles.buttons}>

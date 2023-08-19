@@ -55,6 +55,7 @@ export default function GeneratorFormComponents({
                                         pattern="[a-z0-9\-]+"
                                         value={alias}
                                         onChange={(e): void => setAlias(e.target.value)}
+                                        data-show-border-vaildation={!!alias}
                                     />
                                 </div>
                             </label>
@@ -68,6 +69,7 @@ export default function GeneratorFormComponents({
                                         required
                                         value={original}
                                         onChange={(e): void => setOriginal(e.target.value)}
+                                        data-show-border-vaildation={!!original}
                                     />
                                 </div>
                             </label>

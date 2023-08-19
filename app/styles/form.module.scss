@@ -84,7 +84,7 @@
     }
 
     &:has(input:not(:focus-visible)) {
-        &:has(input:not([value=""])) {
+        &:has(input[data-show-border-vaildation="true"]) {
             &:has(input:invalid) {
                 border-color: var(--color-danger);
             }
