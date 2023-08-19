@@ -7,4 +7,5 @@ export interface SnackbarModel {
     id: SnackbarIdEnum;
     variant: SnackbarVariantEnum;
     message: ReactNode;
+    timeoutId?: ReturnType<typeof setTimeout>;
 }

@@ -11,11 +11,11 @@ export function useSnackbar(): {addSnackbar: (snackbar: SnackbarModel) => void} 
 
     const addSnackbar = useCallback(
         (snackbar: SnackbarModel) => {
-            context.dispatch({type: 'ADD_SNACKBAR', payload: {snackbar}});
-
-            setTimeout(() => {
+            snackbar.timeoutId = setTimeout(() => {
                 context.dispatch({type: 'REMOVE_SNACKBAR', payload: {id: snackbar.id}});
             }, 3000);
+
+            context.dispatch({type: 'ADD_SNACKBAR', payload: {snackbar}});
         },
         [context]
     );
