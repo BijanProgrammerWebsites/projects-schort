@@ -1,5 +1,8 @@
+import {signIn, SignInOptions, SignInResponse} from 'next-auth/react';
+
 import {ErrorDto} from '@/app/dto/error.dto';
 
+import {SnackbarIdEnum} from '@/app/enums/snackbar-id.enum';
 import {SnackbarVariantEnum} from '@/app/enums/snackbar-variant.enum';
 
 import {useSnackbar} from '@/app/hooks/snackbar.hook';
@@ -10,43 +13,71 @@ type FetchDataType = <ResponseType>(
     body?: unknown
 ) => Promise<ResponseType | ErrorDto>;
 
-export function useApi(): {fetchData: FetchDataType} {
+type LogInType = (credentials: string, options?: SignInOptions) => Promise<SignInResponse | undefined | ErrorDto>;
+
+const UNHANDLED_ERROR_MESSAGE = 'An unhandled error occurred. Please try again later.';
+const SYNTAX_ERROR_MESSAGE = 'An error occurred while parsing server response. Please try again later.';
+
+export function useApi(): {fetchData: FetchDataType; logIn: LogInType} {
     const {addSnackbar} = useSnackbar();
 
-    const fetchData = async <ResponseType, BodyType>(
+    const fetchData = async <ResultType, BodyType>(
         method: 'GET' | 'POST' | 'PUT' | 'DELETE',
         url: string,
         body?: BodyType
-    ): Promise<ResponseType | ErrorDto> => {
-        const result = await (async (): Promise<ResponseType | ErrorDto> => {
-            try {
-                const response = await fetch(url, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(body),
-                });
+    ): Promise<ResultType | ErrorDto> => {
+        return handleError(async (): Promise<ResultType | ErrorDto> => {
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
+            });
 
-                if (response?.ok) {
-                    return await response.json();
-                } else {
-                    const error = await response.json();
-                    return new ErrorDto(error.message);
-                }
+            if (response?.ok) {
+                return await response.json();
+            }
+
+            const error = await response.json();
+            return new ErrorDto(error.message);
+        });
+    };
+
+    const logIn = async (provider: string, options?: SignInOptions): Promise<SignInResponse | undefined | ErrorDto> => {
+        return handleError(async (): Promise<SignInResponse | undefined | ErrorDto> => {
+            const response = await signIn(provider, {
+                ...options,
+                callbackUrl: '/',
+            });
+
+            console.log('response', response);
+
+            if (response === undefined || response?.ok) {
+                return response;
+            } else if (response.error) {
+                return new ErrorDto(response.error, SnackbarIdEnum.LOGIN_FAIL);
+            }
+
+            return new ErrorDto(UNHANDLED_ERROR_MESSAGE);
+        });
+    };
+
+    const handleError = async <T extends () => Promise<unknown>>(callback: T): Promise<ReturnType<T> | ErrorDto> => {
+        const result = await (async (): Promise<ReturnType<T> | ErrorDto> => {
+            try {
+                return (await callback()) as ReturnType<T>;
             } catch (error) {
                 if (error instanceof ErrorDto) {
                     return error;
                 }
 
                 if (error instanceof SyntaxError) {
-                    return new ErrorDto(
-                        '[Parse Error] An error occurred while parsing server response. Please try again later.'
-                    );
+                    return new ErrorDto(SYNTAX_ERROR_MESSAGE);
                 }
             }
 
-            return new ErrorDto('[Unhandled Error] An unhandled error occurred.');
+            return new ErrorDto(UNHANDLED_ERROR_MESSAGE);
         })();
 
         if (result instanceof ErrorDto) {
@@ -62,5 +93,6 @@ export function useApi(): {fetchData: FetchDataType} {
 
     return {
         fetchData,
+        logIn,
     };
 }

@@ -2,10 +2,6 @@
 
 import {FormEvent, ReactElement, useState} from 'react';
 
-import {useRouter} from 'next/navigation';
-
-import {signIn} from 'next-auth/react';
-
 import {User} from '@prisma/client';
 
 import {FaGithub} from 'react-icons/fa';
@@ -29,7 +25,7 @@ enum FormType {
 }
 
 export default function AuthFormComponent(): ReactElement {
-    const {fetchData} = useApi();
+    const {fetchData, logIn} = useApi();
     const {addSnackbar} = useSnackbar();
 
     const [formType, setFormType] = useState<FormType>(FormType.SIGNUP);
@@ -39,62 +35,32 @@ export default function AuthFormComponent(): ReactElement {
     const [password, setPassword] = useState<string>('');
 
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-    const [error, setError] = useState<string>('');
-
-    const router = useRouter();
 
     const githubButtonClickHandler = async (): Promise<void> => {
-        const result = await signIn('github');
-
-        console.log('github result', result);
-
-        if (!result?.error) {
-            console.log('success');
-
-            router.push('/');
-        } else {
-            console.log('failed');
-
-            setError(result.error);
-        }
+        await logIn('github');
     };
 
     const formSubmitHandler = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
-        if (formType === FormType.LOGIN) {
-            await logInWithCredentials();
-        } else {
+        if (formType === FormType.SIGNUP) {
             const result = await fetchData<User>('POST', '/api/auth/sign-up', {name: username, email, password});
+
+            if (result instanceof ErrorDto) {
+                return;
+            }
 
             addSnackbar({
                 id: SnackbarIdEnum.SIGNUP_SUCCESS,
                 variant: SnackbarVariantEnum.SUCCESS,
                 message: 'You successfully signed up.',
             });
-
-            if (!(result instanceof ErrorDto)) {
-                await logInWithCredentials();
-            }
         }
-    };
 
-    const logInWithCredentials = async (): Promise<void> => {
-        const result = await signIn('credentials', {
+        await logIn('credentials', {
             email,
             password,
-            redirect: false,
         });
-
-        if (!(result instanceof ErrorDto)) {
-            addSnackbar({
-                id: SnackbarIdEnum.LOGIN_SUCCESS,
-                variant: SnackbarVariantEnum.SUCCESS,
-                message: `Hello, friend!`,
-            });
-
-            router.push('/');
-        }
     };
 
     return (
@@ -208,8 +174,6 @@ export default function AuthFormComponent(): ReactElement {
                                 {formType}
                             </ButtonComponent>
                         </div>
-
-                        {error && <div className={formStyles.error}>{error}</div>}
                     </form>
                 </main>
             </div>
