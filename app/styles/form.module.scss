@@ -83,7 +83,27 @@
         }
     }
 
+    &:has(input:not(:focus-visible)) {
+        &:has(input:not([value=""])) {
+            &:has(input:invalid) {
+                border-color: var(--color-danger);
+            }
+
+            &:has(input:valid) {
+                border-color: var(--color-success);
+            }
+        }
+    }
+
     &:has(input:focus-visible) {
         outline: var(--outline-focus-visible);
+
+        &:has(input:invalid) {
+            outline-color: var(--color-danger);
+        }
+
+        &:has(input:valid) {
+            outline-color: var(--color-success);
+        }
     }
 }

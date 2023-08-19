@@ -12,7 +12,7 @@ export default function GeneratorGuideComponent(): ReactElement {
             <main>
                 <p>
                     Alias is a unique name that we will use to identify your link with. You can use lowercase letters,
-                    digits and hyphens (-) for alias.
+                    digits and hyphens (-) for alias. It has to contain 3 to 32 characters.
                 </p>
                 <p>Filling out alias input is optional; If you choose to leave it blank, we will create one for you.</p>
                 <p>

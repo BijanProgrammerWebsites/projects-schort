@@ -50,6 +50,9 @@ export default function GeneratorFormComponents({
                                     <input
                                         type="text"
                                         name="alias"
+                                        minLength={3}
+                                        maxLength={32}
+                                        pattern="[a-z0-9\-]+"
                                         value={alias}
                                         onChange={(e): void => setAlias(e.target.value)}
                                     />
