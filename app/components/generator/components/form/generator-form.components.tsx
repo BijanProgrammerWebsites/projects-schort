@@ -24,7 +24,7 @@ export default function GeneratorFormComponents({
     const formSubmitHandler = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
-        const result = await fetchData<Link>('PUT', '/api/link', {original, alias});
+        const result = await fetchData<Link>('POST', '/api/link', {original, alias});
 
         if (!(result instanceof ErrorDto)) {
             setAlias('');

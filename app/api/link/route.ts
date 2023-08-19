@@ -28,7 +28,7 @@ export async function GET(): Promise<NextResponse<Link[]>> {
     return NextResponse.json(links);
 }
 
-export async function PUT(request: Request): Promise<Response> {
+export async function POST(request: Request): Promise<Response> {
     try {
         const parameters = await request.json();
 
@@ -50,7 +50,7 @@ export async function PUT(request: Request): Promise<Response> {
     }
 }
 
-export async function POST(request: Request): Promise<Response> {
+export async function PUT(request: Request): Promise<Response> {
     const {id, alias} = await request.json();
 
     if (!id) {
