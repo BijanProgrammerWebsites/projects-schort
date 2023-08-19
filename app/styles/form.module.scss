@@ -38,11 +38,19 @@
 
             .fields-wrapper {
                 display: grid;
-                gap: 2rem;
+                gap: 4rem;
 
                 label {
                     display: grid;
                     gap: 0.5rem;
+
+                    .title {
+                        font-size: 1.2em;
+                    }
+
+                    .hint {
+                        color: var(--color-gray-70);
+                    }
                 }
             }
         }
@@ -54,7 +62,7 @@
 
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1em;
 
     padding: var(--form-element-padding);
 

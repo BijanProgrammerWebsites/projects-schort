@@ -6,7 +6,7 @@ import {useRouter} from 'next/navigation';
 
 import {signIn} from 'next-auth/react';
 
-import {FaEye, FaEyeSlash, FaGithub} from 'react-icons/fa';
+import {FaGithub} from 'react-icons/fa';
 
 import ButtonComponent, {ButtonComponentSize, ButtonComponentVariant} from '@/app/components/button/button.component';
 
@@ -19,7 +19,7 @@ enum FormType {
 }
 
 export default function AuthFormComponent(): ReactElement {
-    const [formType, setFormType] = useState<FormType>(FormType.LOGIN);
+    const [formType, setFormType] = useState<FormType>(FormType.SIGNUP);
 
     const [username, setUsername] = useState<string>('BijanProgrammer');
     const [email, setEmail] = useState<string>('bijaneisapour@gmail.com');
@@ -29,6 +29,22 @@ export default function AuthFormComponent(): ReactElement {
     const [error, setError] = useState<string>('');
 
     const router = useRouter();
+
+    const githubButtonClickHandler = async (): Promise<void> => {
+        const result = await signIn('github');
+
+        console.log('github result', result);
+
+        if (!result?.error) {
+            console.log('success');
+
+            router.push('/');
+        } else {
+            console.log('failed');
+
+            setError(result.error);
+        }
+    };
 
     const formSubmitHandler = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
@@ -107,7 +123,9 @@ export default function AuthFormComponent(): ReactElement {
                 <main>
                     <form onSubmit={formSubmitHandler}>
                         <div className={formStyles['fields-wrapper']}>
-                            <ButtonComponent icon={<FaGithub />}>{formType} with GitHub</ButtonComponent>
+                            <ButtonComponent icon={<FaGithub />} onClick={githubButtonClickHandler}>
+                                {formType} with GitHub
+                            </ButtonComponent>
                         </div>
 
                         <div className={formStyles.separator}>or</div>
@@ -125,6 +143,12 @@ export default function AuthFormComponent(): ReactElement {
                                             onChange={(e): void => setUsername(e.target.value)}
                                         />
                                     </div>
+                                    {formType === FormType.SIGNUP && (
+                                        <div className={formStyles.hint}>
+                                            Can contain lowercase letters (a-z), uppercase letters (A-Z) and digits
+                                            (0-9).
+                                        </div>
+                                    )}
                                 </label>
                             )}
 
@@ -155,9 +179,15 @@ export default function AuthFormComponent(): ReactElement {
                                         variant={ButtonComponentVariant.GHOST}
                                         onClick={(): void => setIsPasswordVisible((previousValue) => !previousValue)}
                                     >
-                                        {isPasswordVisible ? <FaEye /> : <FaEyeSlash />}
+                                        {isPasswordVisible ? 'Hide' : 'Show'}
                                     </ButtonComponent>
                                 </div>
+                                {formType === FormType.SIGNUP && (
+                                    <div className={formStyles.hint}>
+                                        Has to contain 8 to 16 characters. Has to contain at least one lowercase letter
+                                        (a-z), one uppercase letter (A-Z) and one digit (0-9).
+                                    </div>
+                                )}
                             </label>
 
                             <ButtonComponent variant={ButtonComponentVariant.PRIMARY} type="submit">

@@ -3,6 +3,7 @@
 import {ReactElement} from 'react';
 
 import {Acme} from 'next/font/google';
+import {usePathname} from 'next/navigation';
 
 import {signOut, useSession} from 'next-auth/react';
 
@@ -38,6 +39,7 @@ export default function HeaderComponent(): ReactElement {
 
 function AuthComponent(): ReactElement {
     const {data: session, status: authStatus} = useSession();
+    const pathname = usePathname();
 
     const logoutButtonClickHandler = async (): Promise<void> => {
         await signOut({redirect: false});
@@ -62,6 +64,10 @@ function AuthComponent(): ReactElement {
                 </ButtonComponent>
             </>
         );
+    }
+
+    if (pathname === '/auth') {
+        return <LinkComponent href="/">Return to Home Page</LinkComponent>;
     }
 
     return (
