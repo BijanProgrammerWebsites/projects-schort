@@ -4,6 +4,10 @@ import {Link} from '@prisma/client';
 
 import ButtonComponent, {ButtonComponentVariant} from '@/app/components/button/button.component';
 
+import {ErrorDto} from '@/app/dto/error.dto';
+
+import {useApi} from '@/app/hooks/api.hook';
+
 import formStyles from '@/app/styles/form.module.scss';
 import styles from './generator-form.module.scss';
 
@@ -12,33 +16,21 @@ export default function GeneratorFormComponents({
 }: {
     addLinkToList: (link: Link) => Promise<void>;
 }): ReactElement {
+    const {fetchData} = useApi();
+
     const [alias, setAlias] = useState<string>('');
     const [original, setOriginal] = useState<string>('');
 
     const formSubmitHandler = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
-        const response = await fetch('/api/link', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({original, alias}),
-        });
+        const result = await fetchData<Link>('PUT', '/api/link', {original, alias});
 
-        if (!response.ok) {
-            console.log('error', response);
-        } else {
-            const addedLink = await response.json();
+        if (!(result instanceof ErrorDto)) {
+            setAlias('');
+            setOriginal('');
 
-            if (!addedLink) {
-                console.log('error');
-            } else {
-                setAlias('');
-                setOriginal('');
-
-                await addLinkToList(addedLink);
-            }
+            await addLinkToList(result);
         }
     };
 

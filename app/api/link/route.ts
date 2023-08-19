@@ -9,6 +9,8 @@ import crypto from 'crypto';
 
 import {PrismaService} from '@/app/services/prisma.service';
 
+import {ErrorDto} from '@/app/dto/error.dto';
+
 const prisma = PrismaService.client;
 
 export async function GET(): Promise<NextResponse<Link[]>> {
@@ -27,21 +29,25 @@ export async function GET(): Promise<NextResponse<Link[]>> {
 }
 
 export async function PUT(request: Request): Promise<Response> {
-    const parameters = await request.json();
+    try {
+        const parameters = await request.json();
 
-    const original = parameters.original;
-    const alias = parameters.alias || crypto.randomBytes(4).toString('hex');
+        const original = parameters.original;
+        const alias = parameters.alias || crypto.randomBytes(4).toString('hex');
 
-    const session = await getServerSession(nextAuthOptions);
+        const session = await getServerSession(nextAuthOptions);
 
-    let result: Link;
-    if (!session?.user?.email) {
-        result = await prisma.link.create({data: {original, alias}});
-    } else {
-        result = await prisma.link.create({data: {original, alias, user: {connect: {email: session.user.email}}}});
+        let result: Link;
+        if (!session?.user?.email) {
+            result = await prisma.link.create({data: {original, alias}});
+        } else {
+            result = await prisma.link.create({data: {original, alias, user: {connect: {email: session.user.email}}}});
+        }
+
+        return new Response(JSON.stringify(result));
+    } catch (error) {
+        return new Response(JSON.stringify(new ErrorDto(JSON.stringify(error))), {status: 400});
     }
-
-    return new Response(JSON.stringify(result));
 }
 
 export async function POST(request: Request): Promise<Response> {
