@@ -6,9 +6,19 @@ import {useRouter} from 'next/navigation';
 
 import {signIn} from 'next-auth/react';
 
+import {User} from '@prisma/client';
+
 import {FaGithub} from 'react-icons/fa';
 
 import ButtonComponent, {ButtonComponentSize, ButtonComponentVariant} from '@/app/components/button/button.component';
+
+import {ErrorDto} from '@/app/dto/error.dto';
+
+import {SnackbarIdEnum} from '@/app/enums/snackbar-id.enum';
+import {SnackbarVariantEnum} from '@/app/enums/snackbar-variant.enum';
+
+import {useApi} from '@/app/hooks/api.hook';
+import {useSnackbar} from '@/app/hooks/snackbar.hook';
 
 import formStyles from '@/app/styles/form.module.scss';
 import styles from './auth-form.module.scss';
@@ -19,11 +29,14 @@ enum FormType {
 }
 
 export default function AuthFormComponent(): ReactElement {
+    const {fetchData} = useApi();
+    const {addSnackbar} = useSnackbar();
+
     const [formType, setFormType] = useState<FormType>(FormType.SIGNUP);
 
-    const [username, setUsername] = useState<string>('BijanProgrammer');
-    const [email, setEmail] = useState<string>('bijaneisapour@gmail.com');
-    const [password, setPassword] = useState<string>('1234');
+    const [username, setUsername] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
@@ -50,38 +63,37 @@ export default function AuthFormComponent(): ReactElement {
         e.preventDefault();
 
         if (formType === FormType.LOGIN) {
-            const result = await signIn('credentials', {
-                email,
-                password,
-                redirect: false,
+            await logInWithCredentials();
+        } else {
+            const result = await fetchData<User>('POST', '/api/auth/sign-up', {name: username, email, password});
+
+            addSnackbar({
+                id: SnackbarIdEnum.SIGNUP_SUCCESS,
+                variant: SnackbarVariantEnum.SUCCESS,
+                message: 'You successfully signed up.',
             });
 
-            console.log('credentials result', result);
-
-            if (!result?.error) {
-                console.log('success');
-
-                router.push('/');
-            } else {
-                console.log('failed');
-
-                setError(result.error);
+            if (!(result instanceof ErrorDto)) {
+                await logInWithCredentials();
             }
-        } else {
-            try {
-                const response = await fetch('/api/auth/sign-up', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({name: username, email, password}),
-                });
+        }
+    };
 
-                const result = await response.json();
-                console.log('fetch result', result);
-            } catch (error) {
-                console.log('fetch error', error);
-            }
+    const logInWithCredentials = async (): Promise<void> => {
+        const result = await signIn('credentials', {
+            email,
+            password,
+            redirect: false,
+        });
+
+        if (!(result instanceof ErrorDto)) {
+            addSnackbar({
+                id: SnackbarIdEnum.LOGIN_SUCCESS,
+                variant: SnackbarVariantEnum.SUCCESS,
+                message: `Hello, friend!`,
+            });
+
+            router.push('/');
         }
     };
 
@@ -131,33 +143,13 @@ export default function AuthFormComponent(): ReactElement {
                         <div className={formStyles.separator}>or</div>
 
                         <div className={formStyles['fields-wrapper']}>
-                            {formType === FormType.SIGNUP && (
-                                <label>
-                                    <div className={formStyles.title}>Username</div>
-                                    <div className={formStyles.field}>
-                                        <input
-                                            type="text"
-                                            name="username"
-                                            required
-                                            value={username}
-                                            onChange={(e): void => setUsername(e.target.value)}
-                                        />
-                                    </div>
-                                    {formType === FormType.SIGNUP && (
-                                        <div className={formStyles.hint}>
-                                            Can contain lowercase letters (a-z), uppercase letters (A-Z) and digits
-                                            (0-9).
-                                        </div>
-                                    )}
-                                </label>
-                            )}
-
                             <label>
                                 <div className={formStyles.title}>Email</div>
                                 <div className={formStyles.field}>
                                     <input
                                         type="email"
                                         name="email"
+                                        autoComplete="email"
                                         required
                                         value={email}
                                         onChange={(e): void => setEmail(e.target.value)}
@@ -165,12 +157,34 @@ export default function AuthFormComponent(): ReactElement {
                                 </div>
                             </label>
 
+                            {formType === FormType.SIGNUP && (
+                                <label>
+                                    <div className={formStyles.title}>Username</div>
+                                    <div className={formStyles.field}>
+                                        <input
+                                            type="text"
+                                            name="username"
+                                            autoComplete="username"
+                                            required
+                                            value={username}
+                                            onChange={(e): void => setUsername(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className={formStyles.hint}>
+                                        Can contain lowercase letters (a-z), uppercase letters (A-Z) and digits (0-9).
+                                    </div>
+                                </label>
+                            )}
+
                             <label>
                                 <div className={formStyles.title}>Password</div>
                                 <div className={formStyles.field}>
                                     <input
                                         type={isPasswordVisible ? 'text' : 'password'}
                                         name="password"
+                                        autoComplete={
+                                            formType === FormType.SIGNUP ? 'new-password' : 'current-password'
+                                        }
                                         required
                                         value={password}
                                         onChange={(e): void => setPassword(e.target.value)}

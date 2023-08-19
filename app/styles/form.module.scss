@@ -64,8 +64,6 @@
     align-items: center;
     gap: 1em;
 
-    padding: var(--form-element-padding);
-
     border: 0.2rem solid var(--color-gray-20);
     border-radius: var(--border-radius);
 
@@ -75,6 +73,8 @@
         flex: 1 1 0;
 
         background-color: transparent;
+
+        padding: var(--form-element-padding);
 
         border: none;
 
