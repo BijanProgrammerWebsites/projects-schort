@@ -1,6 +1,6 @@
 import {ErrorDto} from '@/app/dto/error.dto';
 
-import {SnackbarVariantModel} from '@/app/models/snackbar-variant.model';
+import {SnackbarVariantEnum} from '@/app/enums/snackbar-variant.enum';
 
 import {useSnackbar} from '@/app/hooks/snackbar.hook';
 
@@ -51,8 +51,8 @@ export function useApi(): {fetchData: FetchDataType} {
 
         if (result instanceof ErrorDto) {
             addSnackbar({
-                id: Math.random().toString(),
-                variant: SnackbarVariantModel.DANGER,
+                id: result.snackbarId,
+                variant: SnackbarVariantEnum.DANGER,
                 message: result.message,
             });
         }

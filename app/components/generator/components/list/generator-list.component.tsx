@@ -5,6 +5,14 @@ import {Link} from '@prisma/client';
 import ButtonComponent, {ButtonComponentSize, ButtonComponentVariant} from '@/app/components/button/button.component';
 import LinkComponent from '@/app/components/link/link.component';
 
+import {ErrorDto} from '@/app/dto/error.dto';
+
+import {SnackbarIdEnum} from '@/app/enums/snackbar-id.enum';
+import {SnackbarVariantEnum} from '@/app/enums/snackbar-variant.enum';
+
+import {useApi} from '@/app/hooks/api.hook';
+import {useSnackbar} from '@/app/hooks/snackbar.hook';
+
 import formStyles from '@/app/styles/form.module.scss';
 import styles from './generator-list.module.scss';
 
@@ -35,72 +43,57 @@ function GeneratorListItemComponent({
     setLinks: Dispatch<SetStateAction<Link[]>>;
     isEditable: boolean;
 }): ReactElement {
+    const {fetchData} = useApi();
+    const {addSnackbar} = useSnackbar();
+
     const [alias, setAlias] = useState<string>(link.alias);
     const [isConfirmButtonDisabled, setIsConfirmButtonDisabled] = useState<boolean>(true);
-
-    const formSubmitHandler = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-        e.preventDefault();
-
-        const response = await fetch('/api/link', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({id: link.id, alias}),
-        });
-
-        if (!response.ok) {
-            console.log('error', response);
-        } else {
-            const result = await response.json();
-
-            if (!result) {
-                console.log('error');
-            } else {
-                console.log('result', result);
-
-                setLinks((previousValue) => previousValue.map((x) => (x.id === link.id ? {...x, alias} : x)));
-                setIsConfirmButtonDisabled(true);
-            }
-        }
-    };
 
     const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         setAlias(e.target.value);
         setIsConfirmButtonDisabled(false);
     };
 
-    const copyButtonClickHandler = async (): Promise<void> => {
-        const content = `https://schort.ir/${link.alias}`;
+    const formSubmitHandler = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+        e.preventDefault();
 
-        if ('clipboard' in navigator) {
-            await navigator.clipboard.writeText(content);
-        } else {
-            document.execCommand('copy', true, content);
+        const result = await fetchData<Link>('PUT', '/api/link', {id: link.id, alias});
+
+        if (!(result instanceof ErrorDto)) {
+            setLinks((previousValue) => previousValue.map((x) => (x.id === link.id ? {...x, alias} : x)));
+            setIsConfirmButtonDisabled(true);
+        }
+    };
+
+    const copyButtonClickHandler = async (): Promise<void> => {
+        try {
+            const content = `https://schort.ir/${link.alias}`;
+
+            if ('clipboard' in navigator) {
+                await navigator.clipboard.writeText(content);
+            } else {
+                document.execCommand('copy', true, content);
+            }
+
+            addSnackbar({
+                id: SnackbarIdEnum.COPY_SUCCESS,
+                variant: SnackbarVariantEnum.SUCCESS,
+                message: 'The link successfully copied to your clipboard.',
+            });
+        } catch {
+            addSnackbar({
+                id: SnackbarIdEnum.COPY_FAIL,
+                variant: SnackbarVariantEnum.DANGER,
+                message: 'Your browser does not support this feature.',
+            });
         }
     };
 
     const removeButtonClickHandler = async (): Promise<void> => {
-        const response = await fetch('/api/link', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({id: link.id}),
-        });
+        const result = await fetchData<Link>('DELETE', '/api/link', {id: link.id});
 
-        if (!response.ok) {
-            console.log('error', response);
-        } else {
-            const result = await response.json();
-
-            if (!result) {
-                console.log('error');
-            } else {
-                console.log('result', result);
-
-                setLinks((previousValue) => previousValue.filter((x) => x.id !== link.id));
-            }
+        if (!(result instanceof ErrorDto)) {
+            setLinks((previousValue) => previousValue.filter((x) => x.id !== link.id));
         }
     };
 

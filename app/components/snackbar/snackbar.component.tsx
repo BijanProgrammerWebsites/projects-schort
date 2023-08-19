@@ -2,23 +2,23 @@ import {ReactElement, ReactNode} from 'react';
 
 import {FaCheck, FaInfo, FaTimes} from 'react-icons/fa';
 
-import {SnackbarVariantModel} from '@/app/models/snackbar-variant.model';
+import {SnackbarVariantEnum} from '@/app/enums/snackbar-variant.enum';
 
 import styles from './snackbar.module.scss';
 
 export default function SnackbarComponent({
-    variant = SnackbarVariantModel.BASIC,
+    variant = SnackbarVariantEnum.BASIC,
     children,
 }: {
-    variant: SnackbarVariantModel;
+    variant: SnackbarVariantEnum;
     children: ReactNode;
 }): ReactElement {
     return (
         <div className={`${styles['snackbar-component']} ${styles[variant]}`}>
             <div className={styles.icon}>
-                {variant === SnackbarVariantModel.BASIC && <FaInfo />}
-                {variant === SnackbarVariantModel.SUCCESS && <FaCheck />}
-                {variant === SnackbarVariantModel.DANGER && <FaTimes />}
+                {variant === SnackbarVariantEnum.BASIC && <FaInfo />}
+                {variant === SnackbarVariantEnum.SUCCESS && <FaCheck />}
+                {variant === SnackbarVariantEnum.DANGER && <FaTimes />}
             </div>
 
             <div className={styles.message}>{children}</div>

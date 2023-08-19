@@ -1,9 +1,10 @@
 import {ReactNode} from 'react';
 
-import {SnackbarVariantModel} from '@/app/models/snackbar-variant.model';
+import {SnackbarIdEnum} from '@/app/enums/snackbar-id.enum';
+import {SnackbarVariantEnum} from '@/app/enums/snackbar-variant.enum';
 
 export interface SnackbarModel {
-    id: string;
-    variant: SnackbarVariantModel;
+    id: SnackbarIdEnum;
+    variant: SnackbarVariantEnum;
     message: ReactNode;
 }
