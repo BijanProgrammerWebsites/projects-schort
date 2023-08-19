@@ -62,6 +62,12 @@ function GeneratorListItemComponent({
         if (!(result instanceof ErrorDto)) {
             setLinks((previousValue) => previousValue.map((x) => (x.id === link.id ? {...x, alias} : x)));
             setIsConfirmButtonDisabled(true);
+
+            addSnackbar({
+                id: SnackbarIdEnum.LINK_UPDATE_SUCCESS,
+                variant: SnackbarVariantEnum.SUCCESS,
+                message: 'The link successfully updated.',
+            });
         }
     };
 
@@ -76,13 +82,13 @@ function GeneratorListItemComponent({
             }
 
             addSnackbar({
-                id: SnackbarIdEnum.COPY_SUCCESS,
+                id: SnackbarIdEnum.LINK_COPY_SUCCESS,
                 variant: SnackbarVariantEnum.SUCCESS,
                 message: 'The link successfully copied to your clipboard.',
             });
         } catch {
             addSnackbar({
-                id: SnackbarIdEnum.COPY_FAIL,
+                id: SnackbarIdEnum.LINK_COPY_FAIL,
                 variant: SnackbarVariantEnum.DANGER,
                 message: 'Your browser does not support this feature.',
             });
@@ -94,6 +100,12 @@ function GeneratorListItemComponent({
 
         if (!(result instanceof ErrorDto)) {
             setLinks((previousValue) => previousValue.filter((x) => x.id !== link.id));
+
+            addSnackbar({
+                id: SnackbarIdEnum.LINK_REMOVE_SUCCESS,
+                variant: SnackbarVariantEnum.SUCCESS,
+                message: 'The link successfully removed.',
+            });
         }
     };
 

@@ -33,7 +33,7 @@ export default function GeneratorComponent(): ReactElement {
         }
     }, [authStatus]);
 
-    const addLinkToList = async (addedLink: Link): Promise<void> => {
+    const addLinkToList = (addedLink: Link): void => {
         if (authStatus === 'authenticated') {
             setServerLinks((previousValue) => [addedLink, ...previousValue]);
         } else {

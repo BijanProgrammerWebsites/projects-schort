@@ -6,17 +6,18 @@ import ButtonComponent, {ButtonComponentVariant} from '@/app/components/button/b
 
 import {ErrorDto} from '@/app/dto/error.dto';
 
+import {SnackbarIdEnum} from '@/app/enums/snackbar-id.enum';
+import {SnackbarVariantEnum} from '@/app/enums/snackbar-variant.enum';
+
 import {useApi} from '@/app/hooks/api.hook';
+import {useSnackbar} from '@/app/hooks/snackbar.hook';
 
 import formStyles from '@/app/styles/form.module.scss';
 import styles from './generator-form.module.scss';
 
-export default function GeneratorFormComponents({
-    addLinkToList,
-}: {
-    addLinkToList: (link: Link) => Promise<void>;
-}): ReactElement {
+export default function GeneratorFormComponents({addLinkToList}: {addLinkToList: (link: Link) => void}): ReactElement {
     const {fetchData} = useApi();
+    const {addSnackbar} = useSnackbar();
 
     const [alias, setAlias] = useState<string>('');
     const [original, setOriginal] = useState<string>('');
@@ -30,7 +31,13 @@ export default function GeneratorFormComponents({
             setAlias('');
             setOriginal('');
 
-            await addLinkToList(result);
+            addLinkToList(result);
+
+            addSnackbar({
+                id: SnackbarIdEnum.LINK_GENERATE_SUCCESS,
+                variant: SnackbarVariantEnum.SUCCESS,
+                message: 'The link successfully generated.',
+            });
         }
     };
 
