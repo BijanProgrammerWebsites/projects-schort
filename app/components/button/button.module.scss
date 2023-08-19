@@ -39,13 +39,19 @@
         padding-inline: calc(var(--form-element-padding-inline) + var(--icon-size) + var(--gap));
     }
 
-    &:hover {
+    &:not(:disabled):hover {
         background-color: var(--backgronud-color-hover, var(--backgronud-color-idle));
         color: var(--foreground-color-hover, var(--foreground-color-idle));
     }
 
     &:focus-visible {
         outline: var(--outline-focus-visible);
+    }
+
+    &:disabled {
+        filter: grayscale(1);
+
+        cursor: not-allowed;
     }
 
     &.basic {
@@ -62,11 +68,20 @@
         --backgronud-color-hover: var(--color-primary-lighter);
     }
 
+    &.success {
+        --backgronud-color-idle: var(--color-success);
+        --foreground-color-idle: var(--color-success-opposite);
+
+        --backgronud-color-hover: var(--color-success-lighter);
+    }
+
     &.danger {
-        --backgronud-color-idle: var(--color-danger);
-        --foreground-color-idle: var(--color-danger-opposite);
+        --backgronud-color-idle: transparent;
+        --foreground-color-idle: var(--color-danger);
 
         --backgronud-color-hover: var(--color-danger-lighter);
+
+        border: 0.2rem solid currentcolor;
     }
 
     &.ghost {

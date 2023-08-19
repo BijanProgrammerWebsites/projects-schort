@@ -19,7 +19,7 @@ export default function GeneratorFormComponents({
         e.preventDefault();
 
         const response = await fetch('/api/link', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },

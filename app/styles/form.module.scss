@@ -43,42 +43,39 @@
                 label {
                     display: grid;
                     gap: 0.5rem;
-
-                    .title {
-                    }
-
-                    .field {
-                        background-color: var(--color-gray-10);
-
-                        display: flex;
-                        align-items: center;
-                        gap: 0.5rem;
-
-                        padding: var(--form-element-padding);
-
-                        border: 0.2rem solid var(--color-gray-20);
-                        border-radius: var(--border-radius);
-
-                        font-size: 1.8rem;
-
-                        input {
-                            flex: 1 1 0;
-
-                            background-color: transparent;
-
-                            border: none;
-
-                            &:focus {
-                                outline: none;
-                            }
-                        }
-
-                        &:has(input:focus-visible) {
-                            outline: var(--outline-focus-visible);
-                        }
-                    }
                 }
             }
         }
+    }
+}
+
+.field {
+    background-color: var(--color-gray-10);
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    padding: var(--form-element-padding);
+
+    border: 0.2rem solid var(--color-gray-20);
+    border-radius: var(--border-radius);
+
+    font-size: 1.8rem;
+
+    input {
+        flex: 1 1 0;
+
+        background-color: transparent;
+
+        border: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &:has(input:focus-visible) {
+        outline: var(--outline-focus-visible);
     }
 }

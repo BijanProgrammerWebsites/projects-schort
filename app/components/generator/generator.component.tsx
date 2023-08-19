@@ -55,9 +55,9 @@ export default function GeneratorComponent(): ReactElement {
                 {authStatus === 'loading' ? (
                     <Loading />
                 ) : authStatus === 'authenticated' ? (
-                    <GeneratorListComponent links={serverLinks} setLinks={setServerLinks} />
+                    <GeneratorListComponent links={serverLinks} setLinks={setServerLinks} isEditable={true} />
                 ) : (
-                    <GeneratorListComponent links={clientLinks} setLinks={setClientLinks} />
+                    <GeneratorListComponent links={clientLinks} setLinks={setClientLinks} isEditable={false} />
                 )}
             </div>
         </div>

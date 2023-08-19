@@ -4,6 +4,7 @@ import styles from './button.module.scss';
 
 export enum ButtonComponentVariant {
     BASIC = 'basic',
+    SUCCESS = 'success',
     PRIMARY = 'primary',
     DANGER = 'danger',
     GHOST = 'ghost',

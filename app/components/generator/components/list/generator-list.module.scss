@@ -6,35 +6,37 @@
         background-color: var(--color-gray-16);
 
         display: grid;
-        grid-template-areas: "alias buttons" "original original";
-        grid-template-columns: 1fr auto;
         gap: 1rem;
 
         padding: 2rem;
 
         border-radius: var(--border-radius);
 
-        .alias {
-            grid-area: alias;
-
-            font-size: 2.8rem;
-            font-weight: 700;
-        }
-
-        .buttons {
-            grid-area: buttons;
-
+        form {
             display: flex;
             align-items: center;
             gap: 1rem;
 
-            .copy {
+            font-size: 1.8rem;
+
+            .field {
+                flex: 1 1 0;
+
+                padding: 0.5em;
+            }
+
+            .buttons {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+
+                button {
+                    padding: 0.5em;
+                }
             }
         }
 
         .original {
-            grid-area: original;
-
             font-size: 1.8rem;
         }
     }

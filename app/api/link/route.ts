@@ -26,7 +26,7 @@ export async function GET(): Promise<NextResponse<Link[]>> {
     return NextResponse.json(links);
 }
 
-export async function POST(request: Request): Promise<Response> {
+export async function PUT(request: Request): Promise<Response> {
     const parameters = await request.json();
 
     const original = parameters.original;
@@ -40,6 +40,35 @@ export async function POST(request: Request): Promise<Response> {
     } else {
         result = await prisma.link.create({data: {original, alias, user: {connect: {email: session.user.email}}}});
     }
+
+    return new Response(JSON.stringify(result));
+}
+
+export async function POST(request: Request): Promise<Response> {
+    const {id, alias} = await request.json();
+
+    if (!id) {
+        return new Response(JSON.stringify({error: 'ID is required'}), {status: 400});
+    }
+
+    const session = await getServerSession(nextAuthOptions);
+
+    if (!session?.user?.email) {
+        return new Response(JSON.stringify({error: 'not logged in'}), {status: 400});
+    }
+
+    const link = await prisma.link.findUnique({
+        where: {
+            id,
+        },
+        include: {user: true},
+    });
+
+    if (!link?.user || link.user.email !== session.user.email) {
+        return new Response(JSON.stringify({error: 'link not belong to user'}), {status: 400});
+    }
+
+    const result = await prisma.link.update({where: {id: link.id}, data: {alias}});
 
     return new Response(JSON.stringify(result));
 }

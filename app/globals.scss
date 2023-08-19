@@ -1,33 +1,34 @@
 :root {
-    --color-gray-98: hsl(36deg 5% 98%);
-    --color-gray-95: hsl(36deg 5% 95%);
-    --color-gray-90: hsl(36deg 5% 90%);
-    --color-gray-80: hsl(36deg 5% 80%);
-    --color-gray-70: hsl(36deg 5% 70%);
-    --color-gray-40: hsl(36deg 5% 40%);
-    --color-gray-36: hsl(36deg 5% 36%);
-    --color-gray-30: hsl(36deg 5% 30%);
-    --color-gray-20: hsl(36deg 5% 20%);
-    --color-gray-16: hsl(36deg 5% 16%);
-    --color-gray-14: hsl(36deg 5% 14%);
-    --color-gray-12: hsl(36deg 5% 12%);
-    --color-gray-10: hsl(36deg 5% 10%);
-    --color-gray-8: hsl(36deg 5% 8%);
+    --color-gray-98: hsl(0deg 0% 98%);
+    --color-gray-95: hsl(0deg 0% 95%);
+    --color-gray-90: hsl(0deg 0% 90%);
+    --color-gray-80: hsl(0deg 0% 80%);
+    --color-gray-70: hsl(0deg 0% 70%);
+    --color-gray-40: hsl(0deg 0% 40%);
+    --color-gray-36: hsl(0deg 0% 36%);
+    --color-gray-30: hsl(0deg 0% 30%);
+    --color-gray-20: hsl(0deg 0% 20%);
+    --color-gray-16: hsl(0deg 0% 16%);
+    --color-gray-14: hsl(0deg 0% 14%);
+    --color-gray-12: hsl(0deg 0% 12%);
+    --color-gray-10: hsl(0deg 0% 10%);
+    --color-gray-8: hsl(0deg 0% 8%);
 
     --color-primary: hsl(36deg 100% 50%);
     --color-primary-opposite: var(--color-gray-10);
-    --color-primary-darker: hsl(36deg 100% 46%);
     --color-primary-lighter: hsl(36deg 100% 58%);
 
-    --color-success: hsl(140deg 80% 50%);
+    --color-success: hsl(140deg 60% 50%);
+    --color-success-opposite: var(--color-gray-10);
+    --color-success-lighter: hsl(140deg 60% 58%);
 
-    --color-danger: hsl(340deg 90% 50%);
+    --color-danger: hsl(350deg 70% 50%);
     --color-danger-opposite: var(--color-gray-10);
-    --color-danger-lighter: hsl(340deg 90% 58%);
+    --color-danger-lighter: hsl(350deg 70% 58%);
 
-    --color-border-fade: hsl(36deg 10% 90% / 20%);
+    --color-border-fade: hsl(0deg 0% 90% / 20%);
 
-    --color-box-shadow-subtle: hsl(36deg 10% 20% / 8%);
+    --color-box-shadow-subtle: hsl(0deg 0% 20% / 8%);
     --box-shadow-subtle: 0 0.3rem 0.7rem 0 var(--color-box-shadow-subtle);
 
     --form-element-padding-block: 1em;
