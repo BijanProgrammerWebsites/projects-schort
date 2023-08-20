@@ -6,6 +6,8 @@ on:
 jobs:
     migrate:
         uses: BijanProgrammerWebsites/hub/.github/workflows/deploy-prisma.yml@master
+        with:
+            process-name: schort
 
     deploy:
         uses: BijanProgrammerWebsites/hub/.github/workflows/deploy-nextjs.yml@master
