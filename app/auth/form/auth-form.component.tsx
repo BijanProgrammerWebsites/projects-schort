@@ -131,13 +131,17 @@ export default function AuthFormComponent(): ReactElement {
                                             type="text"
                                             name="username"
                                             autoComplete="username"
+                                            minLength={3}
+                                            maxLength={16}
+                                            pattern="^[a-zA-Z0-9\-]{3,16}$"
                                             required
                                             value={username}
                                             onChange={(e): void => setUsername(e.target.value)}
                                         />
                                     </div>
                                     <div className={formStyles.hint}>
-                                        Can contain lowercase letters (a-z), uppercase letters (A-Z) and digits (0-9).
+                                        Has to contain 3 to 16 characters. Can only contain lowercase letters (a-z),
+                                        uppercase letters (A-Z), digits (0-9) and hyphens (-).
                                     </div>
                                 </label>
                             )}
@@ -150,6 +154,13 @@ export default function AuthFormComponent(): ReactElement {
                                         name="password"
                                         autoComplete={
                                             formType === FormType.SIGNUP ? 'new-password' : 'current-password'
+                                        }
+                                        minLength={formType === FormType.SIGNUP ? 8 : undefined}
+                                        maxLength={formType === FormType.SIGNUP ? 16 : undefined}
+                                        pattern={
+                                            formType === FormType.SIGNUP
+                                                ? '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$'
+                                                : undefined
                                         }
                                         required
                                         value={password}
@@ -164,8 +175,8 @@ export default function AuthFormComponent(): ReactElement {
                                 </div>
                                 {formType === FormType.SIGNUP && (
                                     <div className={formStyles.hint}>
-                                        Has to contain 8 to 16 characters. Has to contain at least one lowercase letter
-                                        (a-z), one uppercase letter (A-Z) and one digit (0-9).
+                                        Has to contain 8 to 16 characters. Also has to contain at least one lowercase
+                                        letter (a-z), one uppercase letter (A-Z) and one digit (0-9).
                                     </div>
                                 )}
                             </label>

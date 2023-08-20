@@ -122,7 +122,7 @@ function GeneratorListItemComponent({
                         readOnly={!isEditable}
                         minLength={3}
                         maxLength={32}
-                        pattern="[a-z0-9\-]+"
+                        pattern="^[a-z0-9\-]{3,32}$"
                         required
                         value={alias}
                         onChange={inputChangeHandler}

@@ -60,7 +60,7 @@ export default function GeneratorFormComponents({addLinkToList}: {addLinkToList:
                                         name="alias"
                                         minLength={3}
                                         maxLength={32}
-                                        pattern="[a-z0-9\-]+"
+                                        pattern="^[a-z0-9\-]{3,32}$"
                                         value={alias}
                                         onChange={(e): void => setAlias(e.target.value)}
                                         data-show-border-vaildation={!!alias}

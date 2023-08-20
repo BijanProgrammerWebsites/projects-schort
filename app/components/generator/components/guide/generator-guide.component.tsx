@@ -16,8 +16,8 @@ export default function GeneratorGuideComponent(): ReactElement {
                     <em>{new URL('/123', process.env.NEXT_PUBLIC_HOST).toString()}</em>.
                 </p>
                 <p>
-                    You can use lowercase letters, digits and hyphens (-) for alias. Also it has to contain 3 to 32
-                    characters.
+                    You can use lowercase letters (a-z), digits (0-9) and hyphens (-) for alias. Also it has to contain
+                    3 to 32 characters.
                 </p>
                 <p>Filling out alias input is optional. If you choose to leave it blank, we will create one for you.</p>
                 <p>
