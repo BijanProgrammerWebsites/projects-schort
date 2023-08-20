@@ -39,8 +39,8 @@
 
     --outline-focus-visible: 0.2rem dashed var(--color-gray-90);
 
-    --full-width: 120rem;
-    --full-width-padding-inline: calc(max(100% - var(--full-width), 4rem) / 2);
+    --page-max-inline-size: 120rem;
+    --page-padding-inline: calc(max(100% - var(--page-max-inline-size), 4rem) / 2);
 }
 
 *,
@@ -85,8 +85,8 @@ body {
     grid-template-rows: auto 1fr auto;
     gap: 2rem;
 
-    min-height: 100vb;
-    min-height: 100dvb;
+    min-block-size: 100vb;
+    min-block-size: 100dvb;
 
     font-size: 1.6rem;
 
@@ -148,5 +148,5 @@ svg {
 }
 
 .page-bleed {
-    padding-inline: var(--full-width-padding-inline);
+    padding-inline: var(--page-padding-inline);
 }

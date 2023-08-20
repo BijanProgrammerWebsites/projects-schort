@@ -37,7 +37,7 @@
             .description {
                 color: var(--color-gray-70);
 
-                max-width: 40ch;
+                max-inline-size: 40ch;
 
                 margin-block-end: 8rem;
 
@@ -65,8 +65,8 @@
         img {
             justify-self: end;
 
-            width: 80%;
-            height: auto;
+            inline-size: 80%;
+            block-size: auto;
         }
     }
 }

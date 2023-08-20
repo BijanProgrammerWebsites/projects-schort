@@ -5,7 +5,7 @@
     align-items: end;
     justify-content: center;
 
-    min-height: calc(2 * var(--size));
+    min-block-size: calc(2 * var(--size));
 
     .dots {
         display: flex;
