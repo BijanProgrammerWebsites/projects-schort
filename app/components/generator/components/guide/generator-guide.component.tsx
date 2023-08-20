@@ -12,8 +12,8 @@ export default function GeneratorGuideComponent(): ReactElement {
             <main>
                 <p>
                     Alias is a unique name that we will use to identify your link with. For example if alias is{' '}
-                    <em>123</em>, then generated link will be{' '}
-                    <em>{new URL('/123', process.env.NEXT_PUBLIC_HOST).toString()}</em>.
+                    <em>something</em>, then generated link will be{' '}
+                    <em>{new URL('/something', process.env.NEXT_PUBLIC_HOST).toString()}</em>.
                 </p>
                 <p>
                     You can use lowercase letters (a-z), digits (0-9) and hyphens (-) for alias. Also it has to contain

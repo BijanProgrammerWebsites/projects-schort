@@ -7,11 +7,11 @@ import {Link, Prisma} from '@prisma/client';
 
 import crypto from 'crypto';
 
+import {ErrorDto} from '@/app/dto/error.dto';
+
 import {PrismaService} from '@/app/services/prisma.service';
 import {RouteService} from '@/app/services/route.service';
 import {ValidationService} from '@/app/services/validation.service';
-
-import {ErrorDto} from '@/app/dto/error.dto';
 
 const prisma = PrismaService.client;
 

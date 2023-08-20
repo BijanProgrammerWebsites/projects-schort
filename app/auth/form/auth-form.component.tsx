@@ -159,7 +159,7 @@ export default function AuthFormComponent(): ReactElement {
                                         maxLength={formType === FormType.SIGNUP ? 16 : undefined}
                                         pattern={
                                             formType === FormType.SIGNUP
-                                                ? '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$'
+                                                ? '^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).{8,16}$'
                                                 : undefined
                                         }
                                         required

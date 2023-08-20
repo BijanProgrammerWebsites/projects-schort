@@ -10,6 +10,39 @@ export class ValidationService {
         }
     }
 
+    public static throwIfInvalidEmail(value: string): void {
+        const pattern =
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+        if (!pattern.test(value)) {
+            throw new ErrorDto('Email has to be valid.');
+        }
+    }
+
+    public static throwIfInvalidUsername(value: string): void {
+        if (value.length < 3 || 16 < value.length) {
+            throw new ErrorDto('Username has to contain 3 to 16 characters.');
+        }
+
+        if (!/^[a-zA-Z0-9\-]{3,16}$/.test(value)) {
+            throw new ErrorDto(
+                'Username can only contain lowercase letters (a-z), uppercase letters (A-Z), digits (0-9) and hyphens (-).'
+            );
+        }
+    }
+
+    public static throwIfInvalidPassword(value: string): void {
+        if (value.length < 8 || 16 < value.length) {
+            throw new ErrorDto('Password has to contain 8 to 16 characters.');
+        }
+
+        if (!/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).{8,16}$/.test(value)) {
+            throw new ErrorDto(
+                'Password has to contain at least one lowercase letter (a-z), one uppercase letter (A-Z) and one digit (0-9).'
+            );
+        }
+    }
+
     public static throwIfInvalidLinkId(value: string): void {
         if (!value) {
             throw new ErrorDto('Link ID is required');
@@ -20,7 +53,7 @@ export class ValidationService {
         try {
             new URL(value);
         } catch {
-            throw new ErrorDto('Link must be a valid URL.');
+            throw new ErrorDto('Link has to be a valid URL.');
         }
     }
 
@@ -29,8 +62,8 @@ export class ValidationService {
             throw new ErrorDto('Alias has to contain 3 to 32 characters.');
         }
 
-        if (!/^[a-z0-9\-]+$/.test(value)) {
-            throw new ErrorDto('Alias can only contain lowercase letters, digits and hyphens (-).');
+        if (!/^[a-z0-9\-]{3,32}$/.test(value)) {
+            throw new ErrorDto('Alias can only contain lowercase letters (a-z), digits (0-9) and hyphens (-).');
         }
     }
 }

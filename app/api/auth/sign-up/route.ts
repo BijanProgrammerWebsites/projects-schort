@@ -1,14 +1,23 @@
 import bcrypt from 'bcrypt';
 
+import {User} from '@prisma/client';
+
+import {ErrorDto} from '@/app/dto/error.dto';
+
 import {PrismaService} from '@/app/services/prisma.service';
+import {RouteService} from '@/app/services/route.service';
+import {ValidationService} from '@/app/services/validation.service';
 
 const prisma = PrismaService.client;
 
 export async function POST(request: Request): Promise<Response> {
-    const {name, email, password} = await request.json();
+    return RouteService.handleError(async (): Promise<User | ErrorDto> => {
+        const {email, name, password} = await request.json();
+        ValidationService.throwIfInvalidEmail(email);
+        ValidationService.throwIfInvalidUsername(name);
+        ValidationService.throwIfInvalidPassword(password);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const result = await prisma.user.create({data: {name, email, password: hashedPassword}});
-
-    return new Response(JSON.stringify(result));
+        const hashedPassword = await bcrypt.hash(password, 10);
+        return prisma.user.create({data: {email, name, password: hashedPassword}});
+    });
 }
