@@ -4,7 +4,11 @@ on:
         branches: [master]
 
 jobs:
+    migrate:
+        uses: BijanProgrammerWebsites/hub/.github/workflows/deploy-prisma.yml@master
+
     deploy:
         uses: BijanProgrammerWebsites/hub/.github/workflows/deploy-nextjs.yml@master
         with:
             process-name: schort
+        needs: migrate
