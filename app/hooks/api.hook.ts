@@ -51,8 +51,6 @@ export function useApi(): {fetchData: FetchDataType; logIn: LogInType} {
                 callbackUrl: '/',
             });
 
-            console.log('response', response);
-
             if (response === undefined || response?.ok) {
                 return response;
             } else if (response.error) {
@@ -63,10 +61,10 @@ export function useApi(): {fetchData: FetchDataType; logIn: LogInType} {
         });
     };
 
-    const handleError = async <T extends () => Promise<unknown>>(callback: T): Promise<ReturnType<T> | ErrorDto> => {
-        const result = await (async (): Promise<ReturnType<T> | ErrorDto> => {
+    const handleError = async <ResultType>(callback: () => Promise<ResultType>): Promise<ResultType | ErrorDto> => {
+        const result = await (async (): Promise<ResultType | ErrorDto> => {
             try {
-                return (await callback()) as ReturnType<T>;
+                return await callback();
             } catch (error) {
                 if (error instanceof ErrorDto) {
                     return error;

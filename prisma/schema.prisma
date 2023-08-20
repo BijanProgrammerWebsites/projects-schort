@@ -16,6 +16,8 @@ model User {
     email    String @unique
     password String
     links    Link[]
+
+    @@index([email])
 }
 
 model Link {

@@ -58,22 +58,24 @@ function GeneratorListItemComponent({
         e.preventDefault();
 
         const result = await fetchData<Link>('PUT', '/api/link', {id: link.id, alias});
-
-        if (!(result instanceof ErrorDto)) {
-            setLinks((previousValue) => previousValue.map((x) => (x.id === link.id ? {...x, alias} : x)));
-            setIsConfirmButtonDisabled(true);
-
-            addSnackbar({
-                id: SnackbarIdEnum.LINK_UPDATE_SUCCESS,
-                variant: SnackbarVariantEnum.SUCCESS,
-                message: 'The link successfully updated.',
-            });
+        if (result instanceof ErrorDto) {
+            return;
         }
+
+        setIsConfirmButtonDisabled(true);
+
+        setLinks((previousValue) => previousValue.map((x) => (x.id === link.id ? result : x)));
+
+        addSnackbar({
+            id: SnackbarIdEnum.LINK_UPDATE_SUCCESS,
+            variant: SnackbarVariantEnum.SUCCESS,
+            message: 'The link successfully updated.',
+        });
     };
 
     const copyButtonClickHandler = async (): Promise<void> => {
         try {
-            const content = `https://schort.ir/${link.alias}`;
+            const content = new URL(link.alias, process.env.NEXT_PUBLIC_HOST).toString();
 
             if ('clipboard' in navigator) {
                 await navigator.clipboard.writeText(content);
@@ -96,17 +98,18 @@ function GeneratorListItemComponent({
     };
 
     const removeButtonClickHandler = async (): Promise<void> => {
-        const result = await fetchData<Link>('DELETE', '/api/link', {id: link.id});
-
-        if (!(result instanceof ErrorDto)) {
-            setLinks((previousValue) => previousValue.filter((x) => x.id !== link.id));
-
-            addSnackbar({
-                id: SnackbarIdEnum.LINK_REMOVE_SUCCESS,
-                variant: SnackbarVariantEnum.SUCCESS,
-                message: 'The link successfully removed.',
-            });
+        const result = await fetchData<void>('DELETE', '/api/link', {id: link.id});
+        if (result instanceof ErrorDto) {
+            return;
         }
+
+        setLinks((previousValue) => previousValue.filter((x) => x.id !== link.id));
+
+        addSnackbar({
+            id: SnackbarIdEnum.LINK_REMOVE_SUCCESS,
+            variant: SnackbarVariantEnum.SUCCESS,
+            message: 'The link successfully removed.',
+        });
     };
 
     return (

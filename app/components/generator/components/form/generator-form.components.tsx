@@ -26,19 +26,20 @@ export default function GeneratorFormComponents({addLinkToList}: {addLinkToList:
         e.preventDefault();
 
         const result = await fetchData<Link>('POST', '/api/link', {original, alias});
-
-        if (!(result instanceof ErrorDto)) {
-            setAlias('');
-            setOriginal('');
-
-            addLinkToList(result);
-
-            addSnackbar({
-                id: SnackbarIdEnum.LINK_GENERATE_SUCCESS,
-                variant: SnackbarVariantEnum.SUCCESS,
-                message: 'The link successfully generated.',
-            });
+        if (result instanceof ErrorDto) {
+            return;
         }
+
+        setAlias('');
+        setOriginal('');
+
+        addLinkToList(result);
+
+        addSnackbar({
+            id: SnackbarIdEnum.LINK_GENERATE_SUCCESS,
+            variant: SnackbarVariantEnum.SUCCESS,
+            message: 'The link successfully generated.',
+        });
     };
 
     return (
