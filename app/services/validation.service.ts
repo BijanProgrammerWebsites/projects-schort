@@ -19,14 +19,14 @@ export class ValidationService {
         }
     }
 
-    public static throwIfInvalidUsername(value: string): void {
+    public static throwIfInvalidName(value: string): void {
         if (value.length < 3 || 16 < value.length) {
-            throw new ErrorDto('Username has to contain 3 to 16 characters.');
+            throw new ErrorDto('Name has to contain 3 to 16 characters.');
         }
 
         if (!/^[a-zA-Z0-9\-]{3,16}$/.test(value)) {
             throw new ErrorDto(
-                'Username can only contain lowercase letters (a-z), uppercase letters (A-Z), digits (0-9) and hyphens (-).'
+                'Name can only contain lowercase letters (a-z), uppercase letters (A-Z), digits (0-9) and hyphens (-).'
             );
         }
     }

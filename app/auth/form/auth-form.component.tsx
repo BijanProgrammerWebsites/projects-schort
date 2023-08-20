@@ -30,7 +30,7 @@ export default function AuthFormComponent(): ReactElement {
 
     const [formType, setFormType] = useState<FormType>(FormType.SIGNUP);
 
-    const [username, setUsername] = useState<string>('');
+    const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
@@ -44,7 +44,7 @@ export default function AuthFormComponent(): ReactElement {
         e.preventDefault();
 
         if (formType === FormType.SIGNUP) {
-            const result = await fetchData<User>('POST', '/api/auth/sign-up', {name: username, email, password});
+            const result = await fetchData<User>('POST', '/api/auth/sign-up', {name: name, email, password});
 
             if (result instanceof ErrorDto) {
                 return;
@@ -125,18 +125,18 @@ export default function AuthFormComponent(): ReactElement {
 
                             {formType === FormType.SIGNUP && (
                                 <label>
-                                    <div className={formStyles.title}>Username</div>
+                                    <div className={formStyles.title}>Name</div>
                                     <div className={formStyles.field}>
                                         <input
                                             type="text"
-                                            name="username"
-                                            autoComplete="username"
+                                            name="name"
+                                            autoComplete="name"
                                             minLength={3}
                                             maxLength={16}
                                             pattern="^[a-zA-Z0-9\-]{3,16}$"
                                             required
-                                            value={username}
-                                            onChange={(e): void => setUsername(e.target.value)}
+                                            value={name}
+                                            onChange={(e): void => setName(e.target.value)}
                                         />
                                     </div>
                                     <div className={formStyles.hint}>
