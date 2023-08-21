@@ -96,12 +96,12 @@ export default function Home(): ReactElement {
                             share them and they will work but there is no way to see or edit them.
                         </TypewriterAnimation>{' '}
                         <LinkComponent href="/auth">
-                            <PopAnimation
+                            <TypewriterAnimation
                                 shouldStart={animationStatus.signUpForFree}
                                 doneCallback={(): void => playNextAnimation('signUpForFree')}
                             >
                                 Sign up for FREE
-                            </PopAnimation>
+                            </TypewriterAnimation>
                         </LinkComponent>
                     </p>
                 )}

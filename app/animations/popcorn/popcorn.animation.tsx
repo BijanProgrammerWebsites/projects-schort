@@ -55,25 +55,23 @@ export default function PopcornAnimation({
     return (
         <>
             {words.map((word, wordIndex) => (
-                <>
-                    <span key={wordIndex} className={styles.word}>
-                        {word.map((token, tokenIndex) => (
-                            <motion.span
-                                key={tokenIndex}
-                                className={styles.token}
-                                variants={variants}
-                                initial="hidden"
-                                animate={controls}
-                                transition={{
-                                    ...transition,
-                                    delay: baseDelay + token.delayIndex * 0.05 + Math.random() / 10,
-                                }}
-                            >
-                                {token.character}
-                            </motion.span>
-                        ))}
-                    </span>{' '}
-                </>
+                <span key={wordIndex} className={styles.word}>
+                    {word.map((token, tokenIndex) => (
+                        <motion.span
+                            key={tokenIndex}
+                            className={styles.token}
+                            variants={variants}
+                            initial="hidden"
+                            animate={controls}
+                            transition={{
+                                ...transition,
+                                delay: baseDelay + token.delayIndex * 0.05 + Math.random() / 10,
+                            }}
+                        >
+                            {token.character}
+                        </motion.span>
+                    ))}
+                </span>
             ))}
         </>
     );
