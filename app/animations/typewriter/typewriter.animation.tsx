@@ -4,36 +4,36 @@ import {ReactElement} from 'react';
 
 import {motion, Transition, Variants} from 'framer-motion';
 
-import styles from './popcorn.module.scss';
+import styles from './typewriter.module.scss';
 
-interface PopcornAnimationProps {
+interface TypewriterAnimationProps {
     baseDelay?: number;
     children: string;
 }
 
-export default function PopcornAnimation({baseDelay = 0, children}: PopcornAnimationProps): ReactElement {
+export default function TypewriterAnimation({baseDelay = 0, children}: TypewriterAnimationProps): ReactElement {
     const variants: Variants = {
-        hidden: {opacity: 0, y: 60, scale: 0.6, transformOrigin: 'bottom'},
-        visible: {opacity: 1, y: 0, scale: 1},
+        hidden: {opacity: 0, x: -12},
+        visible: {opacity: 1, x: 0},
     };
 
     const transition: Transition = {
-        duration: 0.6,
-        ease: [0.6, 0, 0.12, 1.8],
+        duration: 0.24,
+        ease: 'linear',
     };
 
     return (
         <>
-            {children.split('').map((character, index) => (
+            {children.split(' ').map((character, index) => (
                 <motion.span
                     className={styles.character}
                     key={index}
                     variants={variants}
                     initial="hidden"
                     animate="visible"
-                    transition={{...transition, delay: baseDelay + index * 0.1 + Math.random() / 6}}
+                    transition={{...transition, delay: baseDelay + index * 0.048}}
                 >
-                    {character}
+                    {character}{' '}
                 </motion.span>
             ))}
         </>
