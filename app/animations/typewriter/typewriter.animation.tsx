@@ -1,26 +1,41 @@
 'use client';
 
-import {ReactElement} from 'react';
+import {ReactElement, useEffect} from 'react';
 
-import {motion, Transition, Variants} from 'framer-motion';
+import {motion, Transition, useAnimation, Variants} from 'framer-motion';
 
 import styles from './typewriter.module.scss';
 
 interface TypewriterAnimationProps {
+    shouldStart?: boolean;
+    doneCallback?: () => void;
     baseDelay?: number;
     children: string;
 }
 
-export default function TypewriterAnimation({baseDelay = 0, children}: TypewriterAnimationProps): ReactElement {
+export default function TypewriterAnimation({
+    shouldStart = true,
+    doneCallback,
+    baseDelay = 0,
+    children,
+}: TypewriterAnimationProps): ReactElement {
+    const controls = useAnimation();
+
     const variants: Variants = {
         hidden: {opacity: 0, x: -12},
         visible: {opacity: 1, x: 0},
     };
 
     const transition: Transition = {
-        duration: 0.24,
+        duration: 0.16,
         ease: 'linear',
     };
+
+    useEffect(() => {
+        if (shouldStart) {
+            controls.start('visible').then(doneCallback);
+        }
+    }, [controls, doneCallback, shouldStart]);
 
     return (
         <>
@@ -30,8 +45,8 @@ export default function TypewriterAnimation({baseDelay = 0, children}: Typewrite
                     key={index}
                     variants={variants}
                     initial="hidden"
-                    animate="visible"
-                    transition={{...transition, delay: baseDelay + index * 0.048}}
+                    animate={controls}
+                    transition={{...transition, delay: baseDelay + index * 0.016}}
                 >
                     {word}{' '}
                 </motion.span>
