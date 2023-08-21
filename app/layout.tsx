@@ -14,9 +14,26 @@ import './globals.scss';
 
 const geologica = Geologica({weight: ['400', '700'], subsets: ['latin']});
 
+const metadataTitle = 'Schort';
+const metadataDescription =
+    'We can help you generate a short link from any URL. Short links are easier to share in social medias and they are also more likely to be remembered.';
+
 export const metadata: Metadata = {
-    title: 'Schort',
-    description: 'We can help you generate a short link from any URL.',
+    title: metadataTitle,
+    description: metadataDescription,
+    robots: 'index, follow',
+    viewport: 'width=device-width, initial-scale=1.0',
+    openGraph: {
+        title: metadataTitle,
+        description: metadataDescription,
+        locale: 'en_US',
+        type: 'website',
+    },
+    twitter: {
+        title: metadataTitle,
+        description: metadataDescription,
+        card: 'app',
+    },
 };
 
 export default function RootLayout({children}: {children: ReactNode}): ReactElement {
