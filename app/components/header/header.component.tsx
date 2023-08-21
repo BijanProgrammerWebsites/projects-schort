@@ -49,14 +49,14 @@ export default function HeaderComponent(): ReactElement {
                 </span>
             </LinkComponent>
 
-            <div className={styles.auth}>
-                <PopAnimation
-                    shouldStart={animationStatus.headerAuth}
-                    doneCallback={(): void => playNextAnimation('headerAuth')}
-                >
+            <PopAnimation
+                shouldStart={animationStatus.headerAuth}
+                doneCallback={(): void => playNextAnimation('headerAuth')}
+            >
+                <div className={styles.auth}>
                     <AuthComponent />
-                </PopAnimation>
-            </div>
+                </div>
+            </PopAnimation>
         </header>
     );
 }

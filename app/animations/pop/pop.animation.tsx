@@ -43,7 +43,7 @@ export default function PopAnimation({
     return (
         <>
             <motion.span
-                className={`${styles.wrapper} ${className}`}
+                className={className}
                 variants={variants}
                 initial="hidden"
                 animate={controls}
