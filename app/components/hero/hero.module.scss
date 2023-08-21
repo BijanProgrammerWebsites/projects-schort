@@ -1,0 +1,154 @@
+@use "@/app/utils";
+
+.hero-component {
+    display: grid;
+    grid-template-areas: "text" "suggestion";
+    align-items: center;
+    justify-items: center;
+    gap: 2rem;
+
+    padding-block: 2rem;
+
+    text-align: center;
+
+    .text {
+        grid-area: text;
+
+        display: grid;
+        justify-items: center;
+
+        h1 {
+            display: grid;
+            gap: 1rem;
+
+            margin-block-end: 2rem;
+
+            line-height: 1;
+
+            .subtitle {
+                @include utils.font-size-clamp(24, 36);
+                font-weight: 400;
+            }
+
+            .title {
+                color: var(--color-gray-98);
+
+                @include utils.font-size-clamp(36, 84);
+                font-weight: 700;
+
+                letter-spacing: 0.25rem;
+
+                text-transform: uppercase;
+
+                .size-matters {
+                    color: var(--color-primary);
+
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    column-gap: 2rem;
+
+                    line-height: 0.9;
+                }
+            }
+        }
+
+        .description {
+            color: var(--color-gray-70);
+
+            max-inline-size: 40ch;
+
+            margin-block-end: 6rem;
+
+            @include utils.font-size-clamp(16, 20);
+        }
+    }
+
+    .suggestion {
+        grid-area: suggestion;
+
+        color: var(--color-gray-70);
+
+        max-inline-size: 40ch;
+
+        margin-block-end: 4rem;
+
+        @include utils.font-size-clamp(14, 18);
+
+        strong {
+            color: var(--color-primary);
+
+            display: block;
+
+            @include utils.font-size-clamp(18, 24);
+            font-weight: 700;
+
+            text-transform: uppercase;
+        }
+    }
+
+    .image {
+        grid-area: image;
+
+        display: none;
+    }
+}
+
+@media (min-width: 480px) {
+    .hero-component {
+        .suggestion {
+            strong {
+                display: initial;
+            }
+        }
+    }
+}
+
+@media (min-width: 960px) {
+    .hero-component {
+        grid-template-areas: "text image" "suggestion image";
+        grid-template-columns: 1fr 1fr;
+        justify-items: start;
+
+        padding-block: 6rem;
+
+        text-align: start;
+
+        .text {
+            justify-items: start;
+
+            h1 {
+                gap: 1rem;
+
+                .title {
+                    .size-matters {
+                        justify-content: start;
+                    }
+                }
+            }
+
+            .description {
+                margin-block-end: 8rem;
+            }
+        }
+
+        .image {
+            display: grid;
+
+            inline-size: 100%;
+
+            img {
+                justify-self: end;
+
+                inline-size: 80%;
+                block-size: auto;
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .hero-component {
+        padding-block: 12rem;
+    }
+}

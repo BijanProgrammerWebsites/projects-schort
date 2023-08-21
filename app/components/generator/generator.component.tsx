@@ -53,7 +53,7 @@ export default function GeneratorComponent(): ReactElement {
     };
 
     return (
-        <div className={styles['generator-component']}>
+        <section className={styles['generator-component']}>
             <div className={styles.form}>
                 <PopAnimation
                     shouldStart={animationStatus.generatorForm}
@@ -81,6 +81,6 @@ export default function GeneratorComponent(): ReactElement {
                     <GeneratorListComponent links={clientLinks} setLinks={setClientLinks} isEditable={false} />
                 )}
             </div>
-        </div>
+        </section>
     );
 }
