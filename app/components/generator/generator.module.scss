@@ -1,7 +1,6 @@
 .generator-component {
     display: grid;
-    grid-template-areas: "form guide" "list list";
-    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "guide" "form" "list";
     gap: 6rem;
 
     .form {
@@ -14,5 +13,12 @@
 
     .list {
         grid-area: list;
+    }
+}
+
+@media (min-width: 960px) {
+    .generator-component {
+        grid-template-areas: "form guide" "list list";
+        grid-template-columns: 1fr 1fr;
     }
 }

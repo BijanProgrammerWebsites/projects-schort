@@ -1,3 +1,5 @@
+@use "@/app/utils";
+
 .generator-guide-component {
     background-color: var(--color-gray-16);
 
@@ -19,7 +21,7 @@
         p {
             color: var(--color-gray-70);
 
-            font-size: 1.8rem;
+            @include utils.font-size-clamp(14, 18);
         }
     }
 }

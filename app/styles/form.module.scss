@@ -1,3 +1,5 @@
+@use "@/app/utils";
+
 .form-container {
     background-color: var(--color-gray-16);
 
@@ -67,7 +69,7 @@
     border: 0.2rem solid var(--color-gray-20);
     border-radius: var(--border-radius);
 
-    font-size: 1.8rem;
+    @include utils.font-size-clamp(14, 18);
 
     input {
         flex: 1 1 0;

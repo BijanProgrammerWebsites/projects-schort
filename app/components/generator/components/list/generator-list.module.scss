@@ -1,3 +1,5 @@
+@use "@/app/utils";
+
 .generator-list-component {
     display: grid;
     gap: 2rem;
@@ -7,6 +9,7 @@
 
         > li {
             display: grid;
+            grid-template-columns: minmax(0, 1fr);
             gap: 1rem;
 
             padding: 2rem;
@@ -15,10 +18,11 @@
 
             form {
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
                 gap: 1rem;
 
-                font-size: 1.8rem;
+                @include utils.font-size-clamp(14, 18);
 
                 .field {
                     flex: 1 1 0;
@@ -38,7 +42,7 @@
             }
 
             .original {
-                font-size: 1.8rem;
+                @include utils.font-size-clamp(14, 18);
             }
         }
     }

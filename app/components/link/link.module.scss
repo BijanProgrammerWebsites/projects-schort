@@ -5,6 +5,17 @@
     align-items: center;
     gap: 0.4em;
 
+    max-inline-size: 100%;
+
+    .children {
+        flex: 1 1 0;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
     &:focus-visible {
         outline: var(--outline-focus-visible);
     }
