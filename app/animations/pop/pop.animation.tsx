@@ -38,7 +38,7 @@ export default function PopAnimation({
         if (shouldStart) {
             controls.start('visible').then(doneCallback);
         }
-    }, [controls, doneCallback, shouldStart]);
+    }, [controls, shouldStart]);
 
     return (
         <>

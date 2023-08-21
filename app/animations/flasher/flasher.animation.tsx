@@ -37,7 +37,7 @@ export default function FlasherAnimation({
         if (shouldStart) {
             controls.start('visible').then(doneCallback);
         }
-    }, [controls, doneCallback, shouldStart]);
+    }, [controls, shouldStart]);
 
     return (
         <>

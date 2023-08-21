@@ -35,7 +35,7 @@ export default function TypewriterAnimation({
         if (shouldStart) {
             controls.start('visible').then(doneCallback);
         }
-    }, [controls, doneCallback, shouldStart]);
+    }, [controls, shouldStart]);
 
     return (
         <>
