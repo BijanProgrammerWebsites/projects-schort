@@ -24,16 +24,16 @@ export default function FlasherAnimation({baseDelay = 0, children}: FlasherAnima
 
     return (
         <>
-            {children.split(' ').map((character, index) => (
+            {children.split(' ').map((word, index) => (
                 <motion.span
-                    className={styles.character}
+                    className={styles.word}
                     key={index}
                     variants={variants}
                     initial="hidden"
                     animate="visible"
                     transition={{...transition, delay: baseDelay + index * 0.6}}
                 >
-                    {character}{' '}
+                    {word}{' '}
                 </motion.span>
             ))}
         </>
