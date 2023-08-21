@@ -11,4 +11,7 @@ export interface AnimationStatusModel {
     headerAuth: boolean;
     footerCopyright: boolean;
     footerGithub: boolean;
+    generatorForm: boolean;
+    generatorGuide: boolean;
+    generatorListItem: boolean;
 }

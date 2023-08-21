@@ -1,12 +1,17 @@
 'use client';
 
-import {ReactElement, useEffect, useState} from 'react';
+import {ReactElement, useContext, useEffect, useState} from 'react';
 
 import {useSession} from 'next-auth/react';
 
 import {Link} from '@prisma/client';
 
 import Loading from '@/app/loading';
+
+import {AnimationContext} from '@/app/context/animation.context';
+import {AnimationStatusModel} from '@/app/models/animation-status.model';
+
+import PopAnimation from '@/app/animations/pop/pop.animation';
 
 import GeneratorFormComponents from './components/form/generator-form.components';
 import GeneratorGuideComponent from '@/app/components/generator/components/guide/generator-guide.component';
@@ -19,6 +24,12 @@ export default function GeneratorComponent(): ReactElement {
 
     const [serverLinks, setServerLinks] = useState<Link[]>([]);
     const [clientLinks, setClientLinks] = useState<Link[]>([]);
+
+    const {animationStatus, dispatch: animationDispatch} = useContext(AnimationContext);
+
+    const playNextAnimation = (currentAnimation: keyof AnimationStatusModel): void => {
+        animationDispatch({type: 'START_NEXT_ANIMATION', payload: {currentAnimation}});
+    };
 
     const fetchServerLinks = async (): Promise<void> => {
         const response = await fetch('/api/link');
@@ -44,11 +55,21 @@ export default function GeneratorComponent(): ReactElement {
     return (
         <div className={styles['generator-component']}>
             <div className={styles.form}>
-                <GeneratorFormComponents addLinkToList={addLinkToList} />
+                <PopAnimation
+                    shouldStart={animationStatus.generatorForm}
+                    doneCallback={(): void => playNextAnimation('generatorForm')}
+                >
+                    <GeneratorFormComponents addLinkToList={addLinkToList} />
+                </PopAnimation>
             </div>
 
             <div className={styles.guide}>
-                <GeneratorGuideComponent />
+                <PopAnimation
+                    shouldStart={animationStatus.generatorGuide}
+                    doneCallback={(): void => playNextAnimation('generatorGuide')}
+                >
+                    <GeneratorGuideComponent />
+                </PopAnimation>
             </div>
 
             <div className={styles.list}>

@@ -25,6 +25,9 @@ import styles from './header.module.scss';
 const acme = Acme({weight: '400', subsets: ['latin']});
 
 export default function HeaderComponent(): ReactElement {
+    const pathname = usePathname();
+    const isInAuth = pathname === '/auth';
+
     const {animationStatus, dispatch: animationDispatch} = useContext(AnimationContext);
 
     const playNextAnimation = (currentAnimation: keyof AnimationStatusModel): void => {
@@ -41,7 +44,7 @@ export default function HeaderComponent(): ReactElement {
             >
                 <span>
                     <PopcornAnimation
-                        shouldStart={animationStatus.headerLogo}
+                        shouldStart={isInAuth || animationStatus.headerLogo}
                         doneCallback={(): void => playNextAnimation('headerLogo')}
                     >
                         Schort
@@ -50,7 +53,7 @@ export default function HeaderComponent(): ReactElement {
             </LinkComponent>
 
             <PopAnimation
-                shouldStart={animationStatus.headerAuth}
+                shouldStart={isInAuth || animationStatus.headerAuth}
                 doneCallback={(): void => playNextAnimation('headerAuth')}
             >
                 <div className={styles.auth}>

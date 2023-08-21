@@ -1,6 +1,11 @@
-import {ChangeEvent, Dispatch, FormEvent, ReactElement, SetStateAction, useState} from 'react';
+import {ChangeEvent, Dispatch, FormEvent, ReactElement, SetStateAction, useContext, useState} from 'react';
 
 import {Link} from '@prisma/client';
+
+import {AnimationContext} from '@/app/context/animation.context';
+import {AnimationStatusModel} from '@/app/models/animation-status.model';
+
+import FadeAnimation from '@/app/animations/fade/fade.animation';
 
 import ButtonComponent, {ButtonComponentSize, ButtonComponentVariant} from '@/app/components/button/button.component';
 import LinkComponent from '@/app/components/link/link.component';
@@ -25,10 +30,25 @@ export default function GeneratorListComponent({
     setLinks: Dispatch<SetStateAction<Link[]>>;
     isEditable: boolean;
 }): ReactElement {
+    const {animationStatus, dispatch: animationDispatch} = useContext(AnimationContext);
+
+    const playNextAnimation = (currentAnimation: keyof AnimationStatusModel): void => {
+        animationDispatch({type: 'START_NEXT_ANIMATION', payload: {currentAnimation}});
+    };
+
     return (
         <ul className={styles['generator-list-component']}>
             {links.map((link) => (
-                <GeneratorListItemComponent key={link.id} link={link} setLinks={setLinks} isEditable={isEditable} />
+                <FadeAnimation
+                    key={link.id}
+                    shouldStart={animationStatus.generatorListItem}
+                    waitUntilComeIntoView={true}
+                    doneCallback={(): void => playNextAnimation('generatorListItem')}
+                >
+                    <li>
+                        <GeneratorListItemComponent link={link} setLinks={setLinks} isEditable={isEditable} />
+                    </li>
+                </FadeAnimation>
             ))}
         </ul>
     );
@@ -113,7 +133,7 @@ function GeneratorListItemComponent({
     };
 
     return (
-        <li>
+        <>
             <form onSubmit={(e): Promise<void> => formSubmitHandler(e)}>
                 <div className={`${formStyles.field} ${styles.field}`}>
                     <input
@@ -170,6 +190,6 @@ function GeneratorListItemComponent({
                     {link.original}
                 </LinkComponent>
             </div>
-        </li>
+        </>
     );
 }

@@ -2,6 +2,8 @@
 
 import {ReactElement, useContext} from 'react';
 
+import {usePathname} from 'next/navigation';
+
 import {FaGithub} from 'react-icons/fa';
 
 import {AnimationContext} from '@/app/context/animation.context';
@@ -15,6 +17,9 @@ import LinkComponent, {LinkComponentVariant} from '@/app/components/link/link.co
 import styles from './footer.module.scss';
 
 export default function FooterComponent(): ReactElement {
+    const pathname = usePathname();
+    const isInAuth = pathname === '/auth';
+
     const {animationStatus, dispatch: animationDispatch} = useContext(AnimationContext);
 
     const playNextAnimation = (currentAnimation: keyof AnimationStatusModel): void => {
@@ -25,7 +30,7 @@ export default function FooterComponent(): ReactElement {
         <footer className={'page-bleed ' + styles.footer}>
             <small className={styles.copyright}>
                 <TypewriterAnimation
-                    shouldStart={animationStatus.footerCopyright}
+                    shouldStart={isInAuth || animationStatus.footerCopyright}
                     doneCallback={(): void => playNextAnimation('footerCopyright')}
                 >
                     Copyright &copy; 2023 BijanProgrammer.com
@@ -33,7 +38,7 @@ export default function FooterComponent(): ReactElement {
             </small>
 
             <PopAnimation
-                shouldStart={animationStatus.footerGithub}
+                shouldStart={isInAuth || animationStatus.footerGithub}
                 doneCallback={(): void => playNextAnimation('footerGithub')}
             >
                 <LinkComponent

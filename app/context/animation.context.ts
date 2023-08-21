@@ -22,6 +22,9 @@ export const defaultContextValue: AnimationContextType = {
         headerAuth: false,
         footerCopyright: false,
         footerGithub: false,
+        generatorForm: false,
+        generatorGuide: false,
+        generatorListItem: false,
     },
     dispatch: () => {},
 };

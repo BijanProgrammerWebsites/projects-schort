@@ -2,42 +2,44 @@
     display: grid;
     gap: 2rem;
 
-    > li {
+    > div {
         background-color: var(--color-gray-16);
 
-        display: grid;
-        gap: 1rem;
-
-        padding: 2rem;
-
-        border-radius: var(--border-radius);
-
-        form {
-            display: flex;
-            align-items: center;
+        > li {
+            display: grid;
             gap: 1rem;
 
-            font-size: 1.8rem;
+            padding: 2rem;
 
-            .field {
-                flex: 1 1 0;
+            border-radius: var(--border-radius);
 
-                --form-element-padding: 0.5em;
-            }
-
-            .buttons {
+            form {
                 display: flex;
                 align-items: center;
                 gap: 1rem;
 
-                button {
-                    padding: 0.5em;
+                font-size: 1.8rem;
+
+                .field {
+                    flex: 1 1 0;
+
+                    --form-element-padding: 0.5em;
+                }
+
+                .buttons {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+
+                    button {
+                        padding: 0.5em;
+                    }
                 }
             }
-        }
 
-        .original {
-            font-size: 1.8rem;
+            .original {
+                font-size: 1.8rem;
+            }
         }
     }
 }
