@@ -9,4 +9,6 @@ export interface AnimationStatusModel {
     signUpForFree: boolean;
     headerLogo: boolean;
     headerAuth: boolean;
+    footerCopyright: boolean;
+    footerGithub: boolean;
 }

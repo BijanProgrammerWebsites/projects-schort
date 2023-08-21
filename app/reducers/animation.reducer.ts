@@ -13,7 +13,7 @@ export type AnimationAction = {
 
 const nextAnimation: Record<keyof AnimationStatusModel, (keyof AnimationStatusModel)[]> = {
     sizeMatters: ['keepItShort'],
-    keepItShort: ['description', 'headerLogo', 'headerAuth'],
+    keepItShort: ['description', 'headerLogo', 'headerAuth', 'footerCopyright', 'footerGithub'],
     description: ['image'],
     image: ['butWait'],
     butWait: ['betterOption'],
@@ -22,6 +22,8 @@ const nextAnimation: Record<keyof AnimationStatusModel, (keyof AnimationStatusMo
     signUpForFree: [],
     headerLogo: [],
     headerAuth: [],
+    footerCopyright: [],
+    footerGithub: [],
 };
 
 export default function animationReducer(currentState: AnimationState, action: AnimationAction): AnimationState {
