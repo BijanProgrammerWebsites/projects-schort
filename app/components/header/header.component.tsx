@@ -39,12 +39,14 @@ export default function HeaderComponent(): ReactElement {
                 size={LinkComponentSize.UNSET}
                 fontClassName={acme.className}
             >
-                <PopcornAnimation
-                    shouldStart={animationStatus.headerLogo}
-                    doneCallback={(): void => playNextAnimation('headerLogo')}
-                >
-                    Schort
-                </PopcornAnimation>
+                <span>
+                    <PopcornAnimation
+                        shouldStart={animationStatus.headerLogo}
+                        doneCallback={(): void => playNextAnimation('headerLogo')}
+                    >
+                        Schort
+                    </PopcornAnimation>
+                </span>
             </LinkComponent>
 
             <div className={styles.auth}>

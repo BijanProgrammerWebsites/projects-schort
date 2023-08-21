@@ -39,7 +39,7 @@ export default function LinkComponent({
             target={isExternal ? '_blank' : '_self'}
             {...linkProps}
         >
-            <span className={styles.children}>{children}</span>
+            {children}
             {isExternal && <FaArrowUpRightFromSquare />}
         </Link>
     );
