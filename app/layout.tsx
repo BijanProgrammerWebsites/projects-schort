@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: ReactNode}): ReactElement {
     return (
-        <html lang="en">
+        <html lang="en" prefix="og: http://ogp.me/ns#">
             <body className={geologica.className}>
                 <AuthProvider>
                     <AnimationProvider>
