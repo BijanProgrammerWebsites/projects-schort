@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     twitter: {
         title: metadataTitle,
         description: metadataDescription,
-        card: 'app',
+        card: 'summary_large_image',
     },
 };
 
