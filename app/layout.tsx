@@ -19,6 +19,7 @@ const metadataDescription =
     'We can help you generate a short link from any URL. Short links are easier to share in social medias and they are also more likely to be remembered.';
 
 export const metadata: Metadata = {
+    metadataBase: new URL('https://schort.ir/'),
     title: metadataTitle,
     description: metadataDescription,
     robots: 'index, follow',
