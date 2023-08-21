@@ -7,7 +7,7 @@
 
         padding-block: 12rem;
 
-        > div {
+        .text {
             h1 {
                 margin-block-end: 2rem;
 
@@ -62,11 +62,15 @@
             }
         }
 
-        img {
-            justify-self: end;
+        .image {
+            display: grid;
 
-            inline-size: 80%;
-            block-size: auto;
+            img {
+                justify-self: end;
+
+                inline-size: 80%;
+                block-size: auto;
+            }
         }
     }
 }

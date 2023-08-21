@@ -1,12 +1,18 @@
-import {ReactElement} from 'react';
+'use client';
+
+import {ReactElement, useState} from 'react';
 
 import {Luckiest_Guy} from 'next/font/google';
 import Image from 'next/image';
 
-import {getServerSession} from 'next-auth/next';
-import {nextAuthOptions} from '@/app/api/auth/[...nextauth]/options';
+import {useSession} from 'next-auth/react';
 
 import heroIllustration from '@/app/assets/illustrations/hero.svg';
+
+import FlasherAnimation from '@/app/animations/flasher/flasher.animation';
+import PopAnimation from '@/app/animations/pop/pop.animation';
+import PopcornAnimation from '@/app/animations/popcorn/popcorn.animation';
+import TypewriterAnimation from '@/app/animations/typewriter/typewriter.animation';
 
 import GeneratorComponent from '@/app/components/generator/generator.component';
 import LinkComponent from '@/app/components/link/link.component';
@@ -15,40 +21,121 @@ import styles from './page.module.scss';
 
 const luckiestGuy = Luckiest_Guy({weight: '400', subsets: ['latin']});
 
-export default async function Home(): Promise<ReactElement> {
-    const session = await getServerSession(nextAuthOptions);
+export default function Home(): ReactElement {
+    const {status: authStatus} = useSession();
+
+    const [animationStatus, setAnimationStatus] = useState({
+        sizeMatters: true,
+        keepItShort: false,
+        description: false,
+        image: false,
+        butWait: false,
+        betterOption: false,
+        suggestion: false,
+        signUpForFree: false,
+    });
+
+    const nextAnimation: Record<keyof typeof animationStatus, (keyof typeof animationStatus)[]> = {
+        sizeMatters: ['keepItShort'],
+        keepItShort: ['description'],
+        description: ['image'],
+        image: ['butWait'],
+        butWait: ['betterOption'],
+        betterOption: ['suggestion'],
+        suggestion: ['signUpForFree'],
+        signUpForFree: [],
+    };
+
+    const playNextAnimation = (currentAnimation: keyof typeof animationStatus): void => {
+        setAnimationStatus((previousValue) => {
+            nextAnimation[currentAnimation].forEach((animation) => (previousValue[animation] = true));
+            return {...previousValue};
+        });
+    };
 
     return (
         <div className={styles['home-page']}>
             <section className={styles.hero}>
-                <div>
+                <div className={styles.text}>
                     <h1>
-                        <div className={styles.subtitle}>keep it short</div>
+                        <div className={styles.subtitle}>
+                            <FlasherAnimation
+                                shouldStart={animationStatus.keepItShort}
+                                doneCallback={(): void => playNextAnimation('keepItShort')}
+                            >
+                                keep it short
+                            </FlasherAnimation>
+                        </div>
                         <div className={`${styles.title} ${luckiestGuy.className}`}>
-                            <span className={styles['size-matters']}>size matters!</span>
+                            <span className={styles['size-matters']}>
+                                <PopcornAnimation
+                                    shouldStart={animationStatus.sizeMatters}
+                                    doneCallback={(): void => playNextAnimation('sizeMatters')}
+                                >
+                                    size matters!
+                                </PopcornAnimation>
+                            </span>
                         </div>
                     </h1>
 
                     <p className={styles.description}>
-                        We can help you generate a short link from any URL. Short links are easier to share in social
-                        medias and they are also more likely to be remembered.
+                        <TypewriterAnimation
+                            shouldStart={animationStatus.description}
+                            doneCallback={(): void => playNextAnimation('description')}
+                        >
+                            We can help you generate a short link from any URL. Short links are easier to share in
+                            social medias and they are also more likely to be remembered.
+                        </TypewriterAnimation>
                     </p>
 
-                    {!session?.user && (
+                    {authStatus === 'unauthenticated' && (
                         <p className={styles['suggestion']}>
-                            <strong>But Wait!</strong> There is an even better option... Sign up and manage the links
-                            that you have generated. You can even edit them or remove them entirely. Otherwise you
-                            cannot see them after you refresh the page. You can still use and share them and they will
-                            work but there is no way to see or edit them.{' '}
-                            <LinkComponent href="/auth">Sign up for FREE</LinkComponent>.
+                            <strong>
+                                <FlasherAnimation
+                                    separator="\n"
+                                    shouldStart={animationStatus.butWait}
+                                    doneCallback={(): void => playNextAnimation('butWait')}
+                                >
+                                    But Wait!
+                                </FlasherAnimation>
+                            </strong>{' '}
+                            <TypewriterAnimation
+                                shouldStart={animationStatus.betterOption}
+                                doneCallback={(): void => playNextAnimation('betterOption')}
+                            >
+                                There is an even better option...
+                            </TypewriterAnimation>
+                            <br />
+                            <TypewriterAnimation
+                                shouldStart={animationStatus.suggestion}
+                                doneCallback={(): void => playNextAnimation('suggestion')}
+                            >
+                                Sign up and manage the links that you have generated. You can even edit them or remove
+                                them entirely. Otherwise you cannot see them after you refresh the page. You can still
+                                use and share them and they will work but there is no way to see or edit them.
+                            </TypewriterAnimation>{' '}
+                            <LinkComponent href="/auth">
+                                <PopAnimation
+                                    shouldStart={animationStatus.signUpForFree}
+                                    doneCallback={(): void => playNextAnimation('signUpForFree')}
+                                >
+                                    Sign up for FREE
+                                </PopAnimation>
+                            </LinkComponent>
                         </p>
                     )}
                 </div>
 
-                <Image
-                    src={heroIllustration}
-                    alt="an illustration of a mobile phone that has a lot of messages, contacts and ratings floating around it"
-                />
+                <PopAnimation
+                    className={styles.image}
+                    shouldStart={animationStatus.image}
+                    doneCallback={(): void => playNextAnimation('image')}
+                >
+                    <Image
+                        src={heroIllustration}
+                        alt="an illustration of a mobile phone that has a lot of messages, contacts and ratings floating around it"
+                    />
+                </PopAnimation>
             </section>
 
             <section className={styles.generator}>
