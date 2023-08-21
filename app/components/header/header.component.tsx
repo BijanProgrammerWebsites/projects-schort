@@ -1,6 +1,6 @@
 'use client';
 
-import {ReactElement} from 'react';
+import {ReactElement, useContext} from 'react';
 
 import {Acme} from 'next/font/google';
 import {usePathname} from 'next/navigation';
@@ -11,6 +11,12 @@ import {FaArrowRightFromBracket} from 'react-icons/fa6';
 
 import Loading from '@/app/loading';
 
+import {AnimationContext} from '@/app/context/animation.context';
+import {AnimationStatusModel} from '@/app/models/animation-status.model';
+
+import PopAnimation from '@/app/animations/pop/pop.animation';
+import PopcornAnimation from '@/app/animations/popcorn/popcorn.animation';
+
 import ButtonComponent, {ButtonComponentSize, ButtonComponentVariant} from '@/app/components/button/button.component';
 import LinkComponent, {LinkComponentSize, LinkComponentVariant} from '@/app/components/link/link.component';
 
@@ -19,6 +25,12 @@ import styles from './header.module.scss';
 const acme = Acme({weight: '400', subsets: ['latin']});
 
 export default function HeaderComponent(): ReactElement {
+    const {animationStatus, dispatch: animationDispatch} = useContext(AnimationContext);
+
+    const playNextAnimation = (currentAnimation: keyof AnimationStatusModel): void => {
+        animationDispatch({type: 'START_NEXT_ANIMATION', payload: {currentAnimation}});
+    };
+
     return (
         <header className={'page-bleed ' + styles.header}>
             <LinkComponent
@@ -27,11 +39,21 @@ export default function HeaderComponent(): ReactElement {
                 size={LinkComponentSize.UNSET}
                 fontClassName={acme.className}
             >
-                Schort
+                <PopcornAnimation
+                    shouldStart={animationStatus.headerLogo}
+                    doneCallback={(): void => playNextAnimation('headerLogo')}
+                >
+                    Schort
+                </PopcornAnimation>
             </LinkComponent>
 
             <div className={styles.auth}>
-                <AuthComponent />
+                <PopAnimation
+                    shouldStart={animationStatus.headerAuth}
+                    doneCallback={(): void => playNextAnimation('headerAuth')}
+                >
+                    <AuthComponent />
+                </PopAnimation>
             </div>
         </header>
     );

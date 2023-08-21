@@ -1,6 +1,6 @@
 'use client';
 
-import {ReactElement, useState} from 'react';
+import {ReactElement, useContext} from 'react';
 
 import {Luckiest_Guy} from 'next/font/google';
 import Image from 'next/image';
@@ -8,6 +8,9 @@ import Image from 'next/image';
 import {useSession} from 'next-auth/react';
 
 import heroIllustration from '@/app/assets/illustrations/hero.svg';
+
+import {AnimationContext} from '@/app/context/animation.context';
+import {AnimationStatusModel} from '@/app/models/animation-status.model';
 
 import FlasherAnimation from '@/app/animations/flasher/flasher.animation';
 import PopAnimation from '@/app/animations/pop/pop.animation';
@@ -24,33 +27,10 @@ const luckiestGuy = Luckiest_Guy({weight: '400', subsets: ['latin']});
 export default function Home(): ReactElement {
     const {status: authStatus} = useSession();
 
-    const [animationStatus, setAnimationStatus] = useState({
-        sizeMatters: true,
-        keepItShort: false,
-        description: false,
-        image: false,
-        butWait: false,
-        betterOption: false,
-        suggestion: false,
-        signUpForFree: false,
-    });
+    const {animationStatus, dispatch: animationDispatch} = useContext(AnimationContext);
 
-    const nextAnimation: Record<keyof typeof animationStatus, (keyof typeof animationStatus)[]> = {
-        sizeMatters: ['keepItShort'],
-        keepItShort: ['description'],
-        description: ['image'],
-        image: ['butWait'],
-        butWait: ['betterOption'],
-        betterOption: ['suggestion'],
-        suggestion: ['signUpForFree'],
-        signUpForFree: [],
-    };
-
-    const playNextAnimation = (currentAnimation: keyof typeof animationStatus): void => {
-        setAnimationStatus((previousValue) => {
-            nextAnimation[currentAnimation].forEach((animation) => (previousValue[animation] = true));
-            return {...previousValue};
-        });
+    const playNextAnimation = (currentAnimation: keyof AnimationStatusModel): void => {
+        animationDispatch({type: 'START_NEXT_ANIMATION', payload: {currentAnimation}});
     };
 
     return (
