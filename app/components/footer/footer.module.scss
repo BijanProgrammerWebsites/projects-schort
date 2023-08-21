@@ -9,7 +9,7 @@
     padding-block: 2rem;
 
     .copyright {
-        order: 2;
+        order: 1;
     }
 
     .source {
@@ -24,7 +24,7 @@
         justify-content: space-between;
 
         .copyright {
-            order: 1;
+            order: 0;
         }
     }
 }
