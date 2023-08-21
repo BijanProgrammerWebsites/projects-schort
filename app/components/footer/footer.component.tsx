@@ -46,8 +46,10 @@ export default function FooterComponent(): ReactElement {
                     variant={LinkComponentVariant.GHOST}
                     isExternal={true}
                 >
-                    <FaGithub />
-                    Source on GitHub
+                    <span className={styles.source}>
+                        <FaGithub />
+                        Source on GitHub
+                    </span>
                 </LinkComponent>
             </PopAnimation>
         </footer>
