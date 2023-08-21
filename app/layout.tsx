@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: metadataTitle,
         description: metadataDescription,
+        url: 'https://schort.ir/',
         locale: 'en_US',
         type: 'website',
     },
