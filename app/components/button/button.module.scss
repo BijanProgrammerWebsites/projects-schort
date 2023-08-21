@@ -1,3 +1,5 @@
+@use "@/app/utils";
+
 .button {
     --icon-size: 1.2em;
 
@@ -110,12 +112,12 @@
         --form-element-padding-inline: 0.5em;
         --form-element-padding: var(--form-element-padding-block) var(--form-element-padding-inline);
 
-        font-size: 1.6rem;
+        @include utils.font-size-clamp(12, 16);
         font-weight: 700;
     }
 
     &.size--large {
-        font-size: 1.8rem;
+        @include utils.font-size-clamp(14, 18);
         font-weight: 700;
     }
 }

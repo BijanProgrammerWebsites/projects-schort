@@ -21,7 +21,7 @@ export default function PopAnimation({
     className,
     children,
 }: PopAnimationProps): ReactElement {
-    const ref = useRef<HTMLElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref);
     const controls = useAnimation();
 
@@ -43,7 +43,7 @@ export default function PopAnimation({
     }, [controls, shouldStart, waitUntilComeIntoView, isInView]);
 
     return (
-        <motion.span
+        <motion.div
             ref={ref}
             className={className}
             variants={variants}
@@ -52,6 +52,6 @@ export default function PopAnimation({
             transition={transition}
         >
             {children}
-        </motion.span>
+        </motion.div>
     );
 }

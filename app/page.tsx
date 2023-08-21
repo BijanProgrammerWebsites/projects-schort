@@ -67,44 +67,44 @@ export default function Home(): ReactElement {
                             social medias and they are also more likely to be remembered.
                         </TypewriterAnimation>
                     </p>
-
-                    {authStatus === 'unauthenticated' && (
-                        <p className={styles['suggestion']}>
-                            <strong>
-                                <FlasherAnimation
-                                    separator="\n"
-                                    shouldStart={animationStatus.butWait}
-                                    doneCallback={(): void => playNextAnimation('butWait')}
-                                >
-                                    But Wait!
-                                </FlasherAnimation>
-                            </strong>{' '}
-                            <TypewriterAnimation
-                                shouldStart={animationStatus.betterOption}
-                                doneCallback={(): void => playNextAnimation('betterOption')}
-                            >
-                                There is an even better option...
-                            </TypewriterAnimation>
-                            <br />
-                            <TypewriterAnimation
-                                shouldStart={animationStatus.suggestion}
-                                doneCallback={(): void => playNextAnimation('suggestion')}
-                            >
-                                Sign up and manage the links that you have generated. You can even edit them or remove
-                                them entirely. Otherwise you cannot see them after you refresh the page. You can still
-                                use and share them and they will work but there is no way to see or edit them.
-                            </TypewriterAnimation>{' '}
-                            <LinkComponent href="/auth">
-                                <PopAnimation
-                                    shouldStart={animationStatus.signUpForFree}
-                                    doneCallback={(): void => playNextAnimation('signUpForFree')}
-                                >
-                                    Sign up for FREE
-                                </PopAnimation>
-                            </LinkComponent>
-                        </p>
-                    )}
                 </div>
+
+                {authStatus === 'unauthenticated' && (
+                    <p className={styles['suggestion']}>
+                        <strong>
+                            <FlasherAnimation
+                                separator="\n"
+                                shouldStart={animationStatus.butWait}
+                                doneCallback={(): void => playNextAnimation('butWait')}
+                            >
+                                But Wait!
+                            </FlasherAnimation>
+                        </strong>{' '}
+                        <TypewriterAnimation
+                            shouldStart={animationStatus.betterOption}
+                            doneCallback={(): void => playNextAnimation('betterOption')}
+                        >
+                            There is an even better option...
+                        </TypewriterAnimation>
+                        <br />
+                        <TypewriterAnimation
+                            shouldStart={animationStatus.suggestion}
+                            doneCallback={(): void => playNextAnimation('suggestion')}
+                        >
+                            Sign up and manage the links that you have generated. You can even edit them or remove them
+                            entirely. Otherwise you cannot see them after you refresh the page. You can still use and
+                            share them and they will work but there is no way to see or edit them.
+                        </TypewriterAnimation>{' '}
+                        <LinkComponent href="/auth">
+                            <PopAnimation
+                                shouldStart={animationStatus.signUpForFree}
+                                doneCallback={(): void => playNextAnimation('signUpForFree')}
+                            >
+                                Sign up for FREE
+                            </PopAnimation>
+                        </LinkComponent>
+                    </p>
+                )}
 
                 <PopAnimation
                     className={styles.image}

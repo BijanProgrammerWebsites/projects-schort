@@ -1,3 +1,5 @@
+@use "@/app/utils";
+
 :root {
     --color-gray-98: hsl(0deg 0% 98%);
     --color-gray-95: hsl(0deg 0% 95%);
@@ -88,7 +90,7 @@ body {
     min-block-size: 100vb;
     min-block-size: 100dvb;
 
-    font-size: 1.6rem;
+    @include utils.font-size-clamp(14, 16);
 
     &::before {
         --dominant: var(--color-gray-10);

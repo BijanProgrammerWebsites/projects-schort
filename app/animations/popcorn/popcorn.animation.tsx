@@ -1,6 +1,6 @@
 'use client';
 
-import {ReactElement, useEffect} from 'react';
+import {ReactElement, useEffect, useMemo} from 'react';
 
 import {motion, Transition, useAnimation, Variants} from 'framer-motion';
 
@@ -37,19 +37,43 @@ export default function PopcornAnimation({
         }
     }, [controls, shouldStart]);
 
+    const words = useMemo(() => {
+        const words = children.split(' ').map((word) =>
+            word.split('').map((token, tokenIndex) => ({
+                character: token,
+                delayIndex: tokenIndex,
+            }))
+        );
+
+        for (let i = 1; i < words.length; i++) {
+            words[i].forEach((token) => (token.delayIndex += words[i - 1].length));
+        }
+
+        return words;
+    }, [children]);
+
     return (
         <>
-            {children.split('').map((character, index) => (
-                <motion.span
-                    className={styles.character}
-                    key={index}
-                    variants={variants}
-                    initial="hidden"
-                    animate={controls}
-                    transition={{...transition, delay: baseDelay + index * 0.05 + Math.random() / 10}}
-                >
-                    {character}
-                </motion.span>
+            {words.map((word, wordIndex) => (
+                <>
+                    <span key={wordIndex} className={styles.word}>
+                        {word.map((token, tokenIndex) => (
+                            <motion.span
+                                key={tokenIndex}
+                                className={styles.token}
+                                variants={variants}
+                                initial="hidden"
+                                animate={controls}
+                                transition={{
+                                    ...transition,
+                                    delay: baseDelay + token.delayIndex * 0.05 + Math.random() / 10,
+                                }}
+                            >
+                                {token.character}
+                            </motion.span>
+                        ))}
+                    </span>{' '}
+                </>
             ))}
         </>
     );

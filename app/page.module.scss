@@ -1,27 +1,40 @@
+@use "@/app/utils";
+
 .home-page {
     .hero {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "text" "suggestion";
         align-items: center;
+        justify-items: center;
         gap: 2rem;
 
-        padding-block: 12rem;
+        padding-block: 2rem;
+
+        text-align: center;
 
         .text {
+            grid-area: text;
+
+            display: grid;
+            justify-items: center;
+
             h1 {
+                display: grid;
+                gap: 1rem;
+
                 margin-block-end: 2rem;
 
                 line-height: 1;
 
                 .subtitle {
-                    font-size: 3.6rem;
+                    @include utils.font-size-clamp(24, 36);
                     font-weight: 400;
                 }
 
                 .title {
                     color: var(--color-gray-98);
 
-                    font-size: 8.4rem;
+                    @include utils.font-size-clamp(36, 84);
                     font-weight: 700;
 
                     letter-spacing: 0.25rem;
@@ -30,6 +43,13 @@
 
                     .size-matters {
                         color: var(--color-primary);
+
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        column-gap: 2rem;
+
+                        line-height: 0.9;
                     }
                 }
             }
@@ -39,38 +59,104 @@
 
                 max-inline-size: 40ch;
 
-                margin-block-end: 8rem;
+                margin-block-end: 6rem;
 
-                font-size: 2rem;
+                @include utils.font-size-clamp(16, 20);
             }
+        }
 
-            .suggestion {
-                color: var(--color-gray-70);
+        .suggestion {
+            grid-area: suggestion;
 
-                margin-block-end: 4rem;
+            color: var(--color-gray-70);
 
-                font-size: 1.8rem;
+            max-inline-size: 40ch;
 
-                strong {
-                    color: var(--color-primary);
+            margin-block-end: 4rem;
 
-                    font-size: 2.4rem;
-                    font-weight: 700;
+            @include utils.font-size-clamp(14, 18);
 
-                    text-transform: uppercase;
-                }
+            strong {
+                color: var(--color-primary);
+
+                display: block;
+
+                @include utils.font-size-clamp(18, 24);
+                font-weight: 700;
+
+                text-transform: uppercase;
             }
         }
 
         .image {
-            display: grid;
+            grid-area: image;
 
-            img {
-                justify-self: end;
+            display: none;
+        }
+    }
+}
 
-                inline-size: 80%;
-                block-size: auto;
+@media (min-width: 480px) {
+    .home-page {
+        .hero {
+            .suggestion {
+                strong {
+                    display: initial;
+                }
             }
+        }
+    }
+}
+
+@media (min-width: 960px) {
+    .home-page {
+        .hero {
+            grid-template-areas: "text image" "suggestion image";
+            grid-template-columns: 1fr 1fr;
+            justify-items: start;
+
+            padding-block: 6rem;
+
+            text-align: start;
+
+            .text {
+                justify-items: start;
+
+                h1 {
+                    gap: 1rem;
+
+                    .title {
+                        .size-matters {
+                            justify-content: start;
+                        }
+                    }
+                }
+
+                .description {
+                    margin-block-end: 8rem;
+                }
+            }
+
+            .image {
+                display: grid;
+
+                inline-size: 100%;
+
+                img {
+                    justify-self: end;
+
+                    inline-size: 80%;
+                    block-size: auto;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .home-page {
+        .hero {
+            padding-block: 12rem;
         }
     }
 }
