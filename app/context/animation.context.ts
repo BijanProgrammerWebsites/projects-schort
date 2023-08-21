@@ -25,6 +25,7 @@ export const defaultContextValue: AnimationContextType = {
         generatorForm: false,
         generatorGuide: false,
         generatorListItem: false,
+        authForm: true,
     },
     dispatch: () => {},
 };

@@ -36,6 +36,7 @@ const nextAnimation: Record<keyof AnimationStatusModel, (keyof AnimationStatusMo
     generatorForm: [],
     generatorGuide: [],
     generatorListItem: [],
+    authForm: [],
 };
 
 export default function animationReducer(currentState: AnimationState, action: AnimationAction): AnimationState {

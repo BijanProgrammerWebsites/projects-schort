@@ -14,4 +14,5 @@ export interface AnimationStatusModel {
     generatorForm: boolean;
     generatorGuide: boolean;
     generatorListItem: boolean;
+    authForm: boolean;
 }
