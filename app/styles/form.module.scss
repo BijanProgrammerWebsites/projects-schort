@@ -73,11 +73,9 @@
     @include utils.font-size-clamp(14, 18);
 
     input {
-        flex: 1 1 0;
+        flex: 1 1 20rem;
 
         background-color: transparent;
-
-        inline-size: 0;
 
         padding: var(--form-element-padding);
 
