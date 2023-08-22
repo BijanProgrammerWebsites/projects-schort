@@ -22,7 +22,7 @@ model User {
 
 model Link {
     id        String   @id @default(uuid())
-    original  String   @unique
+    original  String
     alias     String   @unique
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
