@@ -86,6 +86,12 @@
         }
     }
 
+    &--password {
+        input {
+            inline-size: 0;
+        }
+    }
+
     &:has(input:not(:focus-visible)) {
         &:has(input[data-show-border-vaildation="true"]) {
             &:has(input:invalid) {

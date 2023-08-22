@@ -163,7 +163,7 @@ export default function AuthFormComponent(): ReactElement {
 
                                 <label>
                                     <div className={formStyles.title}>Password</div>
-                                    <div className={formStyles.field}>
+                                    <div className={`${formStyles.field} ${formStyles['field--password']}`}>
                                         <input
                                             type={isPasswordVisible ? 'text' : 'password'}
                                             name="password"
