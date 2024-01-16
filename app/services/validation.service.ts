@@ -22,6 +22,13 @@ export class ValidationService {
         }
     }
 
+    public static async throwIfDuplicateEmail(value: string): Promise<void> {
+        const duplicate = await prisma.user.findFirst({where: {email: value}});
+        if (duplicate) {
+            throw new ErrorDto('Email has used before.');
+        }
+    }
+
     public static throwIfInvalidName(value: string): void {
         if (value.length < 3 || 16 < value.length) {
             throw new ErrorDto('Name has to contain 3 to 16 characters.');
