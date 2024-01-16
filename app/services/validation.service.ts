@@ -1,5 +1,8 @@
 import {ErrorDto} from '@/app/dto/error.dto';
 import {Session, User} from 'next-auth';
+import {PrismaService} from '@/app/services/prisma.service';
+
+const prisma = PrismaService.client;
 
 export class ValidationService {
     public static throwIfNotLoggedIn(
@@ -64,6 +67,13 @@ export class ValidationService {
 
         if (!/^[a-z0-9\-]{3,32}$/.test(value)) {
             throw new ErrorDto('Alias can only contain lowercase letters (a-z), digits (0-9) and hyphens (-).');
+        }
+    }
+
+    public static async throwIfDuplicateAlias(value: string): Promise<void> {
+        const duplicate = await prisma.link.findFirst({where: {alias: value}});
+        if (duplicate) {
+            throw new ErrorDto('Alias has used before.');
         }
     }
 }

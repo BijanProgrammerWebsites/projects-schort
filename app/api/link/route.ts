@@ -38,6 +38,7 @@ export async function POST(request: Request): Promise<NextResponse<Link | ErrorD
 
         const alias = parameters.alias || crypto.randomBytes(4).toString('hex');
         ValidationService.throwIfInvalidAlias(alias);
+        await ValidationService.throwIfDuplicateAlias(alias);
 
         const session = await getServerSession(nextAuthOptions);
         if (!session?.user?.email) {
@@ -52,6 +53,7 @@ export async function PUT(request: Request): Promise<NextResponse<Link | ErrorDt
         const {id, alias} = await request.json();
         ValidationService.throwIfInvalidLinkId(id);
         ValidationService.throwIfInvalidAlias(alias);
+        await ValidationService.throwIfDuplicateAlias(alias);
 
         const session = await getServerSession(nextAuthOptions);
         ValidationService.throwIfNotLoggedIn(session);
